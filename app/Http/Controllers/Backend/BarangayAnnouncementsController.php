@@ -20,7 +20,7 @@ class BarangayAnnouncementsController extends Controller
     public function Announcements(){
 
         $announcements = BarangayAnnouncements::latest()->get();
-        return view('backend.barangay.barangay_announcements', compact('announcements'));
+        return view('frontend.barangay.barangay_announcements', compact('announcements'));
 
     } // End Method
 

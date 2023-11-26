@@ -19,80 +19,71 @@ class BarangayAttendanceRecordsController extends Controller
 {
     public function AttendanceRecords(){
 
-        $attendance_records = BarangayAttendanceRecords::latest()->get();
-        return view('backend.barangay.barangay_attendance_records', compact('attendance_records'));
+        $attendance_records = BarangayAttendanceRecords::With('resident')->latest()->get();
+        return view('frontend.barangay.barangay_attendance_records', compact('attendance_records'));
 
     } // End Method
 
     public function CreateAttendanceRecord(){
 
-        return view('backend.barangay.create_attendance_record');
+        return view('frontend.barangay.create_attendance_record');
 
     } // End Method
 
-    public function StoreAttendanceRecord(Request $request){
-
+    public function storeAttendanceRecord(Request $request)
+    {
         // Validation
         $request->validate([
-            'event_name' => 'required',
-            'host_name' => 'required',
-            'event_details' => 'required',
-            'event_location' => 'required',
+            'assembly_type' => 'required', // Modify validation rules according to your table structure
             'event_date_time' => 'required',
-            'list_attendees' => 'required'
-
+            'venue' => 'required',
+            'about' => 'required',
         ]);
-
+    
+        // Insert data into the "barangay_attendance_records" table
         BarangayAttendanceRecords::insert([
-
-            'event_name' => $request->event_name,
-            'host_name' => $request->host_name,
-            'event_details' => $request->event_details,
-            'event_location' => $request->event_location,
+            'assembly_type' => $request->assembly_type,
             'event_date_time' => $request->event_date_time,
-            'list_attendees' => $request->list_attendees
-
+            'venue' => $request->venue,
+            'about' => $request->about,
         ]);
-
+    
         $notification = array(
             'message' => 'Attendance record created successfully',
             'alert-type' => 'success'
         );
-
+    
         return redirect()->route('barangay.attendance.records')->with($notification);
-
-    } // End Method
+    }
+    // End Method
 
     public function EditAttendanceRecord($id){
 
         $edit_attendance_record = BarangayAttendanceRecords::findOrFail($id);
-        return view('backend.barangay.edit_attendance_record', compact('edit_attendance_record'));
+        return view('frontend.barangay.edit_attendance_record', compact('edit_attendance_record'));
 
     } // End Method
 
-    public function UpdateAttendanceRecord(Request $request){
+    public function updateAttendanceRecord(Request $request)
+{
+    $attendance_id = $request->id;
 
-        $attendance_id = $request->id;
+    // Update data in the "barangay_attendance_records" table
+    BarangayAttendanceRecords::findOrFail($attendance_id)->update([
+        'assembly_type' => $request->assembly_type, // Modify fields according to your table structure
+        'event_date_time' => $request->event_date_time,
+        'venue' => $request->venue,
+        'about' => $request->about,
+    ]);
 
-        BarangayAttendanceRecords::findOrFail($attendance_id)->update([
+    $notification = array(
+        'message' => 'Attendance record updated successfully',
+        'alert-type' => 'success'
+    );
 
-            'event_name' => $request->event_name,
-            'host_name' => $request->host_name,
-            'event_details' => $request->event_details,
-            'event_location' => $request->event_location,
-            'event_date_time' => $request->event_date_time,
-            'list_attendees' => $request->list_attendees
+    return redirect()->route('barangay.attendance.records')->with($notification);
+}//end method
 
-        ]);
-
-        $notification = array(
-            'message' => 'Attendance record updated successfully',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('barangay.attendance.records')->with($notification);
-
-    } // End Method
 
     public function DeleteAttendanceRecord($id){
 
@@ -111,7 +102,7 @@ class BarangayAttendanceRecordsController extends Controller
 
         $view_attendance_record = BarangayAttendanceRecords::findOrFail($id);
 
-        return view('backend.barangay.view_attendance_record', compact('view_attendance_record'));
+        return view('frontend.barangay.view_attendance_record', compact('view_attendance_record'));
 
    } // End method
 

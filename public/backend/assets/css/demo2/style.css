@@ -2076,7 +2076,7 @@ progress {
 .form-text {
   margin-top: 0.25rem;
   font-size: 0.875em;
-  color: #7987a1;
+  color: black;
 }
 
 .form-control, .typeahead.tt-input,
@@ -2087,10 +2087,10 @@ progress {
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #d0d6e1;
-  background-color: #0c1427;
+  color: black;
+  background-color: whitesmoke;
   background-clip: padding-box;
-  border: 1px solid #172340;
+  border: 1px solid gray;
   appearance: none;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -2111,8 +2111,8 @@ progress {
 }
 .form-control:focus, .typeahead.tt-input:focus,
 .typeahead.tt-hint:focus, .select2-container--default .select2-search--dropdown .select2-search__field:focus {
-  color: #d0d6e1;
-  background-color: #0c1427;
+  color: var(--bs-gray-700);
+  background-color: whitesmoke;
   border-color: #243866;
   outline: 0;
   box-shadow: none;
@@ -2123,7 +2123,7 @@ progress {
 }
 .form-control::placeholder, .typeahead.tt-input::placeholder,
 .typeahead.tt-hint::placeholder, .select2-container--default .select2-search--dropdown .select2-search__field::placeholder {
-  color: #aeb7c5;
+  color:gray;
   opacity: 1;
 }
 .form-control:disabled, .typeahead.tt-input:disabled,
@@ -2241,8 +2241,8 @@ textarea.form-control-lg {
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #d0d6e1;
-  background-color: #0c1427;
+  color: black;
+  background-color: whitesmoke;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23212a3a' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 0.8rem center;
@@ -19483,7 +19483,7 @@ body {
 .navbar .search-form .input-group .input-group-text {
   padding: 0;
   border: 0;
-  color: #7987a1;
+  color: white;
   background: #0c1427;
 }
 .navbar .search-form .input-group .input-group-text svg {
@@ -19499,7 +19499,7 @@ body {
   margin-top: 3px;
   color: #7987a1;
 }
-.navbar .search-form .input-group .form-control::-webkit-input-placeholder, .navbar .search-form .input-group .typeahead.tt-input::-webkit-input-placeholder,
+/* .navbar .search-form .input-group .form-control::-webkit-input-placeholder, .navbar .search-form .input-group .typeahead.tt-input::-webkit-input-placeholder,
 .navbar .search-form .input-group .typeahead.tt-hint::-webkit-input-placeholder, .navbar .search-form .input-group .select2-container--default .select2-search--dropdown .select2-search__field::-webkit-input-placeholder, .select2-container--default .select2-search--dropdown .navbar .search-form .input-group .select2-search__field::-webkit-input-placeholder {
   color: #7987a1;
 }
@@ -19514,7 +19514,7 @@ body {
 .navbar .search-form .input-group .form-control::placeholder, .navbar .search-form .input-group .typeahead.tt-input::placeholder,
 .navbar .search-form .input-group .typeahead.tt-hint::placeholder, .navbar .search-form .input-group .select2-container--default .select2-search--dropdown .select2-search__field::placeholder, .select2-container--default .select2-search--dropdown .navbar .search-form .input-group .select2-search__field::placeholder {
   color: #7987a1;
-}
+} */
 .navbar .navbar-content {
   display: flex;
   width: 100%;
@@ -19612,7 +19612,7 @@ body {
 
 .sidebar {
   width: 240px;
-  height: 100%;
+  height: auto;
   position: fixed;
   left: 0;
   top: 0;
@@ -19877,10 +19877,10 @@ body {
   }
 }
 .sidebar .sidebar-body {
-  /* max-height: calc(100% - 60px); */
-  position: relative;
+  max-height:auto;
+  /* position: relative; */
   border-right: 1px solid #172340;
-  height: auto;
+  /* height: auto; */
   /* -webkit-box-shadow: 0 8px 10px 0 #03060b; */
   /* box-shadow: 0 8px 10px 0 #03060b; */
   background:  #070d19;
@@ -21801,7 +21801,7 @@ div.table-responsive > div.dataTables_wrapper > div.row > div[class^=col-]:last-
 
 .form-control.flatpickr-input, .flatpickr-input.typeahead.tt-input,
 .flatpickr-input.typeahead.tt-hint, .select2-container--default .select2-search--dropdown .flatpickr-input.select2-search__field {
-  background-color: #0c1427;
+  background-color: whitesmoke;
 }
 
 .flatpickr-day.selected,

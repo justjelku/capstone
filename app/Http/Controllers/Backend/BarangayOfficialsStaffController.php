@@ -13,13 +13,13 @@ class BarangayOfficialsStaffController extends Controller
     public function Officials(){
 
         $officials_staffs = BarangayOfficials::latest()->get();
-        return view('backend.barangay.officials_staffs', compact('officials_staffs'));
+        return view('frontend.barangay.officials_staffs', compact('officials_staffs'));
 
     } // End method
 
     public function AddOfficial(){
 
-        return view('backend.barangay.add_official');
+        return view('frontend.barangay.add_official');
 
     } // End method
 
@@ -52,7 +52,7 @@ class BarangayOfficialsStaffController extends Controller
     public function EditOfficial($id){
 
         $edit_official = BarangayOfficials::findOrFail($id);
-        return view('backend.barangay.edit_official', compact('edit_official'));
+        return view('frontend.barangay.edit_official', compact('edit_official'));
 
     } // End method
 
@@ -134,7 +134,7 @@ public function DeleteOfficial($id){
 
         $view_official = BarangayOfficials::findOrFail($id);
 
-        return view('backend.barangay.view_official', compact('view_official'));
+        return view('frontend.barangay.view_official', compact('view_official'));
 
    } // End method
 

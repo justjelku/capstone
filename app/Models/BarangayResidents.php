@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
-
+use App\Models\BarangayAttendanceRecords;
 class BarangayResidents extends Model
 {
     use HasFactory;
@@ -18,5 +18,15 @@ class BarangayResidents extends Model
         $currentDate = Carbon::now();
 
         return $birthdate->diffInYears($currentDate);
+        
     }
+
+
+    protected $table = 'barangay_residents';
+    public function businessClearances()
+    {
+        return $this->hasMany('App\BusinessClearance');
+    }
+
+    
 }

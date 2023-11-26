@@ -1,5 +1,7 @@
 <?php
 
+
+
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
@@ -11,6 +13,9 @@ use App\Http\Controllers\Backend\BarangayBlotterRecordsController;
 use App\Http\Controllers\Backend\BarangayAttendanceRecordsController;
 use App\Http\Controllers\Backend\BarangayAnnouncementsController;
 use App\Http\Controllers\Backend\BarangayRevenuesController;
+use App\Http\Controllers\BusinessClearanceController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +29,7 @@ use App\Http\Controllers\Backend\BarangayRevenuesController;
 */
 
 Route::get('/', function () {
-    return view('frontend.master');
+    return view('landing.master');
 });
 
 Route::get('/dashboard', function () {
@@ -110,26 +115,49 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
         Route::get('/delete/resident/{id}', 'DeleteResident')->name('delete.resident');
 
         Route::get('/view/resident/{id}', 'ViewResident')->name('view.resident');
+        Route::get('/admin/total-residents',  'totalResidents')->name('admin.totalResidents');
+        Route::get('/search/residents',  'searchResidents')->name ('search.residents');
+        Route::get('/barangay/fetchResidents', 'FetchResidents')->name('barangay.fetchResidents');
+
+
 
     });
 
     // Barangay certificates type all route
-    Route::controller(BarangayCertificatesController::class)->group(function(){
-
-        Route::get('/barangay/certificates', 'Certificates')->name('barangay.certificates');
-
-        Route::get('/barangay/barangaycertificate', 'BarangayCertificate')->name('barangay.certificate');
-
-    });
-
+  
     // Barangay clearances type all route
     Route::controller(BarangayClearancesController::class)->group(function(){
 
-        Route::get('/barangay/clearances', 'Clearances')->name('barangay.clearances');
+        // Route::get('/barangay/clearances', 'Clearances')->name('barangay.clearances');
 
-        Route::get('/barangay/barangayclearance', 'BarangayClearance')->name('barangay.clearance');
+        // Route::get('/barangay/barangayclearance', 'BarangayClearance')->name('barangay.clearance');
+        // Route::get('/brgyClearance', 'BrgyClearanceTemplate')->name('brgyClearance');
+
+        Route::get('clearances', 'index')->name('clearances');
+        Route::post('/store/clearances', 'store')->name('store.clearances'); 
+        Route::get('/pdf/clearancePDF', 'pdf')->name('pdf.clearancePDF');
+        Route::get('/fetch/clearances', 'fetch')->name('fetch.clearances');
         
     });
+    // Business Clearance type all  route
+    Route::controller(BusinessClearanceController::class)->group(function(){
+
+        Route::get('/businessClearance', 'BusinessClearanceTemplate')->name('businessClearance');;
+        Route::get('/barangay/business_clearance',  'Clearance')->name('barangay.business_clearance');
+        Route::post('/save-business-clearance', 'saveBusinessClearance')->name('save-business-clearance');
+        Route::get('/fetch-business-clearance', 'fetchBusinessClearance')->name('fetch.business.clearance');
+    
+        
+    });
+    Route::controller(BarangayCertificatesController::class)->group(function(){
+
+        Route::get('certificate', 'index')->name('certificate');
+        Route::post('/store/certificates', 'store')->name('store.certificates'); 
+        Route::get('/pdf/certificate_template', 'pdf')->name('pdf.certificate_template');
+        Route::get('/fetch/certificates', 'fetch')->name('fetch.certificates');   
+    });
+
+
 
     // Barangay blotter records type all route
     Route::controller(BarangayBlotterRecordsController::class)->group(function(){
@@ -148,7 +176,8 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 
     Route::get('/view/blotterrecord/{id}', 'ViewBlotterRecord')->name('view.blotter.record');
     Route::put('/blotter-records/{id}/mark-as-done', 'MarkBlotterRecordAsDone')->name('mark-as-done.blotter.record');
-
+    Route::get('/generate-pdf', 'GeneratePDF')->name('generate-pdf');
+    Route::get('/quarterly-data',  'displayQuarterlyData') ->name('quarterlyData');
 
     
     });
@@ -180,14 +209,16 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     });
 
     // Barangay revenues type all route
-    Route::controller(BarangayRevenuesController::class)->group(function(){
+    // Route::controller(BarangayRevenuesController::class)->group(function(){
 
-    Route::get('/barangay/revenues', 'Revenues')->name('barangay.revenues');
+    // Route::get('/barangay/revenues', 'Revenues')->name('barangay.revenues');
     
-    });
+    // });
 
     // Fetch data to admin dashboard
     Route::get('/admin/dashboard', [BarangayBlotterRecordsController::class, 'DashBlotterRecords'])->name('admin.dashboard');
+    Route::get('/combined-chart', [BarangayResidentsController::class, 'generateChart']);
+
 
 
 

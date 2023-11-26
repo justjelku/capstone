@@ -7,10 +7,10 @@
     </div>
   </div> --}}
   <div class="sidebar-body">
-      <a href="{{ route('admin.dashboard') }}" class="sidebar-brand">
-        <img src="/image/logo.png" alt="Brgy. Imbatug Logo">
-        <span style="color: white; font-size: 18px;">Brgy.Imbatug</span>
-      </a>
+    <a href="{{ route('admin.dashboard') }}" class="sidebar-brand">
+      <img src="/image/logo.png" alt="Brgy. Imbatug Logo">
+      <span style="color: white; font-size: 18px;">Brgy.Imbatug</span>
+    </a>
     <ul class="nav">
       <li class="nav-item nav-category">Main</li>
       <li class="nav-item">
@@ -19,20 +19,22 @@
           <span class="link-title">Dashboard</span>
         </a>
       </li>
+      {{-- end --}}
       <li class="nav-item nav-category">Community</li>
       <li class="nav-item">
-      <a href="{{ route('barangay.officials') }}" class="nav-link ">
+        <a href="{{ route('barangay.officials') }}" class="nav-link ">
           <i class="link-icon" data-feather="users"></i>
           <span class="link-title">Officials</span>
         </a>
       </li>
+      {{-- end --}}
       <li class="nav-item">
         <a href="{{ route('barangay.residents') }}" class="nav-link ">
           <i class="link-icon" data-feather="users"></i>
           <span class="link-title">Residents</span>
         </a>
       </li>
-
+      {{-- end --}}
       <li class="nav-item nav-category">Services</li>
       <li class="nav-item dropdown">
         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -40,54 +42,29 @@
           <span class="link-title">Forms</span>
         </a>
         <ul class="dropdown-menu" style="border: none">
-          <li><a href="{{ route('barangay.certificates') }}" class="dropdown-item">Barangay Certificates</a></li>
-          <li><a href="{{ route('barangay.certificates') }}" class="dropdown-item">Barangay Clearance</a></li>
-          <li><a href="{{ route('barangay.certificates') }}" class="dropdown-item">Indigency</a></li>
-          <li><a href="{{ route('barangay.certificates') }}" class="dropdown-item">Business Clearance</a></li>
-
-
-          </ul>
+          <li><a href="{{ route('certificate') }}" class="dropdown-item">Barangay Certificates</a></li>
+          <li><a href="{{ route('clearances') }}" class="dropdown-item">Barangay Clearance</a></li>
+          <li><a href="{{ route('barangay.business_clearance') }}" class="dropdown-item">Business Clearance </a></li>
+        </ul>
       </li>
-
-
-
-
-      {{-- <li class="nav-item nav-category">Services</li>
-      <li class="nav-item">
-      <a href="{{ route('barangay.certificates') }}" class="nav-link ">
-          <i class="link-icon" data-feather="file-text"></i>
-          <span class="link-title">Forms</span>
-        </a>
-      <li class="nav-item"> --}}
-      {{-- <a href="{{ route('barangay.clearances') }}" class="nav-link">
-          <i class="link-icon" data-feather="file-text"></i>
-          <span class="link-title">Clearances</span>
-        </a>
-
-         --}}
-        
+      {{-- end --}}
       <li class="nav-item nav-category">Records</li>
       <li class="nav-item">
-      <a href="{{ route('barangay.attendance.records') }}" class="nav-link ">
-          <i class="link-icon" data-feather="archive"></i>
-          <span class="link-title">Attendance</span>
+        <a href="" class="nav-link ">
+          <i class="link-icon" data-feather="map-pin"></i>
+          <span class="link-title">Precinct Information</span>
         </a>
-        <div class="collapse" id="general-pages">
-          <ul class="nav sub-menu">
-          </ul>
-        </div>
       </li>
       <li class="nav-item">
-      <a href="{{ route('barangay.blotter.records') }}" class="nav-link ">
+        <a href="{{ route('barangay.blotter.records') }}" class="nav-link ">
           <i class="link-icon" data-feather="archive"></i>
           <span class="link-title">Blotter</span>
         </a>
       </li>
-      <li class="nav-item nav-category">Earnings</li>
       <li class="nav-item">
-        <a href="{{ route('barangay.revenues') }}" class="nav-link ">
-          <i class="link-icon" data-feather="dollar-sign"></i>
-          <span class="link-title">Revenue</span>
+        <a href="" class="nav-link ">
+          <i class="link-icon" data-feather="check-circle"></i>
+          <span class="link-title">Attendance</span>
         </a>
       </li>
       <li class="nav-item nav-category">Releases</li>
@@ -97,20 +74,18 @@
           <span class="link-title">Announcements</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a href="" class="nav-link ">
+          <i class="link-icon" data-feather="settings"></i>
+          <span class="link-title">Settings</span>
+        </a>
+      </li>
     </ul>
   </div>
 
   <script>
     $(document).ready(function() {
-  $('.dropdown-toggle').dropdown();
-});
-
+      $('.dropdown-toggle').dropdown();
+    });
   </script>
-
 </nav>
-
-
-
-  
-   
-

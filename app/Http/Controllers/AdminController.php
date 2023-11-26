@@ -19,11 +19,11 @@ use App\Models\BarangayRevenues;
 class AdminController extends Controller
 {
     public function AdminDashboard() {
-
-        return view('admin.index');
-
-    } // End method
-
+        $residents = BarangayResidents::get(); 
+    
+        return view('admin.index', compact('residents'));
+    }
+    
     public function AdminLogout(Request $request) {
         Auth::guard('web')->logout();
 
@@ -129,43 +129,43 @@ class AdminController extends Controller
     public function About(){
 
         $about = User::latest()->get();
-        return view('backend.barangay.about', compact('about'));
+        return view('landing.barangay.about', compact('about'));
 
     } // End method
 
     public function BarangayHome(){
 
-        return view('frontend.master');
+        return view('landing.master');
 
     } // End method
 
     public function BarangayAbout(){
 
-        return view('frontend.about');
+        return view('landing.about');
 
     } // End method
 
     public function BarangayService(){
 
-        return view('frontend.service');
+        return view('landing.service');
 
     } // End method
 
     public function BarangayContact(){
 
-        return view('frontend.contact');
+        return view('landing.contact');
 
     } // End method
 
     public function BarangayOfficials(){
 
-        return view('frontend.officials');
+        return view('landing.officials');
 
     } // End method
 
     public function BarangayOrdinance(){
 
-        return view('frontend.ordinance');
+        return view('landing.ordinance');
 
     } // End method
 

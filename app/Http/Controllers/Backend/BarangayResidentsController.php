@@ -7,19 +7,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Models\BarangayResidents;
+use Illuminate\Support\Facades\DB;
+
 
 class BarangayResidentsController extends Controller
 {
     public function Residents(){
 
         $residents = BarangayResidents::latest()->get();
-        return view('backend.barangay.residents', compact('residents'));
+        return view('frontend.barangay.residents', compact('residents'));
 
     } // End Method
 
     public function AddResident(){
 
-        return view('backend.barangay.add_resident');
+        return view('frontend.barangay.add_resident');
 
     } // End Method
 
@@ -45,7 +47,6 @@ class BarangayResidentsController extends Controller
          ]);
 
          $requestData = $request->all();
-    
          if ($request->hasFile('photo')) {
              $file = $request->file('photo');
              $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension(); // Generate a unique filename
@@ -54,6 +55,7 @@ class BarangayResidentsController extends Controller
          }
     
         BarangayResidents::create($requestData);
+
 
         
         $notification = array(
@@ -76,7 +78,7 @@ class BarangayResidentsController extends Controller
     public function EditResident($id){
 
         $edit_resident = BarangayResidents::findOrFail($id);
-        return view('backend.barangay.edit_resident', compact('edit_resident'));
+        return view('frontend.barangay.edit_resident', compact('edit_resident'));
 
     } // End method
 
@@ -101,7 +103,6 @@ class BarangayResidentsController extends Controller
         $resident->date_filed_resident_profile = $request->date_filed_resident_profile;
         $resident->signature = $request->signature;
         $resident->name = $request->name;
-        // $resident->photo = $request->photo;
         $resident->first_name = $request->first_name;
         $resident->middle_name = $request->middle_name;
         $resident->last_name = $request->last_name;
@@ -120,6 +121,11 @@ class BarangayResidentsController extends Controller
         $resident->relation_to_the_hh_head = $request->relation_to_the_hh_head;
         $resident->moral = $request->moral;
         $resident->active_participation = $request->active_participation;
+        $resident->registered_voter = $request->registered_voter;
+        $resident->household_representative = $request->household_representative;
+        $resident->family_status = $request->family_status;
+    
+    
     
         if ($request->hasFile('photo')) {
             // Handle the photo update
@@ -156,15 +162,15 @@ class BarangayResidentsController extends Controller
         $resident = BarangayResidents::findOrFail($id);
     
         // Get the photo path before deleting the official
-        $photoPath = public_path($resident->photo);
+        // $photoPath = public_path($resident->photo);
     
         // Delete the official
         $resident->delete();
     
         // Check if the photo file exists and delete it
-        if (file_exists($photoPath)) {
-            unlink($photoPath); // Delete the photo file
-        }
+        // if (file_exists($photoPath)) {
+        //     unlink($photoPath); // Delete the photo file
+        // }
     
         $notification = array(
             'message' => 'Barangay resident deleted successfully.',
@@ -178,13 +184,20 @@ class BarangayResidentsController extends Controller
 
         $view_resident = BarangayResidents::findOrFail($id);
 
-        return view('backend.barangay.view_resident', compact('view_resident'));
+        return view('frontend.barangay.view_resident', compact('view_resident'));
 
    } // End method
-    
 
+   public function searchResidents(Request $request)
+   {
+       $searchQuery = $request->input('searchQuery');
 
-    
+       $results = BarangayResidents::where('name', 'like', "%$searchQuery%")
+           ->orWhere('purok', 'like', "%$searchQuery%")
+           ->get();
+
+       return response()->json($results);
+   }
    
 
 }
