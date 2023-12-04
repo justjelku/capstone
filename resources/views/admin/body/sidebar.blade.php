@@ -51,6 +51,12 @@
       <li class="nav-item nav-category">Records</li>
       <li class="nav-item">
         <a href="" class="nav-link ">
+          <i class="link-icon" data-feather="home"></i>
+          <span class="link-title">Household Information</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="" class="nav-link ">
           <i class="link-icon" data-feather="map-pin"></i>
           <span class="link-title">Precinct Information</span>
         </a>
@@ -74,12 +80,12 @@
           <span class="link-title">Announcements</span>
         </a>
       </li>
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a href="" class="nav-link ">
           <i class="link-icon" data-feather="settings"></i>
           <span class="link-title">Settings</span>
         </a>
-      </li>
+      </li> --}}
     </ul>
   </div>
 

@@ -93,9 +93,9 @@ class BarangayOfficialsStaffController extends Controller
             $file->move(public_path('upload/official_images'), $filename);
     
             // Delete the old photo if it exists
-            if (file_exists($oldPhotoPath)) {
-                unlink($oldPhotoPath); // Delete the old photo file
-            }
+            // if (file_exists($oldPhotoPath)) {
+            //     unlink($oldPhotoPath); // Delete the old photo file
+            // }
         }
     
         $official->save();
@@ -118,9 +118,9 @@ public function DeleteOfficial($id){
     $official->delete();
 
     // Check if the photo file exists and delete it
-    if (file_exists($photoPath)) {
-        unlink($photoPath); // Delete the photo file
-    }
+    // if (file_exists($photoPath)) {
+    //     unlink($photoPath); // Delete the photo file
+    // }
 
     $notification = array(
         'message' => 'Barangay official deleted successfully.',
@@ -135,6 +135,10 @@ public function DeleteOfficial($id){
         $view_official = BarangayOfficials::findOrFail($id);
 
         return view('frontend.barangay.view_official', compact('view_official'));
+        // return view('frontend.barangay.officials_staffs', compact('view_official'));
+
+
+
 
    } // End method
 

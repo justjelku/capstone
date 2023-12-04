@@ -12,12 +12,24 @@ use Illuminate\Support\Facades\DB;
 
 class BarangayResidentsController extends Controller
 {
-    public function Residents(){
+    // public function Residents(){
 
+    //     $residents = BarangayResidents::latest()->get();
+    //     // return view('frontend.barangay.residents', compact('residents'));
+    //     // $residents = BarangayResidents::orderBy('purok', 'ASC')->get();
+    //     return view('frontend.barangay.residents', compact('residents'));
+
+    // } // End Method
+    public function Residents(Request $request){
+        $purok = $request->input('purok', 'Purok 1');
+        $selectedPurok = $purok;
         $residents = BarangayResidents::latest()->get();
-        return view('frontend.barangay.residents', compact('residents'));
-
-    } // End Method
+        $barangay_residents = BarangayResidents::where('purok', $purok)
+            ->orderBy('household_no', 'asc')
+            ->get();
+        return view('frontend.barangay.residents', compact('residents', 'barangay_residents', 'selectedPurok'));
+    }
+    
 
     public function AddResident(){
 
@@ -142,9 +154,9 @@ class BarangayResidentsController extends Controller
             $file->move(public_path('upload/resident_images'), $filename);
     
             // Delete the old photo if it exists
-            if (file_exists($oldPhotoPath)) {
-                unlink($oldPhotoPath); // Delete the old photo file
-            }
+            // if (file_exists($oldPhotoPath)) {
+            //     unlink($oldPhotoPath); // Delete the old photo file
+            // }
         }
     
         // Save the updated resident record

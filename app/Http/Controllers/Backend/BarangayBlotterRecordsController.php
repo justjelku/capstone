@@ -16,18 +16,53 @@ use App\Models\BarangayClearances;
 use App\Models\BarangayOfficials;
 use App\Models\BarangayResidents;
 use App\Models\BarangayRevenues;
+use Carbon\Carbon;
+
 
 use Dompdf\Options;
 
 
 class BarangayBlotterRecordsController extends Controller
 {
-    public function BlotterRecords(){
+    // public function BlotterRecords(){
 
-        $blotter_records = BarangayBlotterRecords::latest()->get();
-        return view('frontend.barangay.barangay_blotter_records', compact('blotter_records'));
+    //     $blotter_records = BarangayBlotterRecords::latest()->get();
+    //     return view('frontend.barangay.barangay_blotter_records', compact('blotter_records'));
 
-    } // End method
+    // } 
+    // public function BlotterRecords(Request $request) {
+    //     $selectedYear = $request->input('year');
+    //     $blotter_records = BarangayBlotterRecords::query();
+    
+    //     if ($selectedYear) {
+    //         $blotter_records->whereYear('updated_at', $selectedYear);
+    //     } else {
+    //         $currentYear = date('Y');
+    //         $blotter_records->whereYear('updated_at', $currentYear);
+    //     }
+    
+    //     $blotter_records = $blotter_records->latest()->get();
+    
+    //     return view('frontend.barangay.barangay_blotter_records', compact('blotter_records', 'selectedYear'));
+    // }
+    public function BlotterRecords(Request $request) {
+        $selectedYear = $request->input('year');
+        $blotter_records = BarangayBlotterRecords::query();
+    
+        if ($selectedYear) {
+            $blotter_records->whereYear('updated_at', $selectedYear);
+        } else {
+            $currentYear = date('Y');
+            $blotter_records->whereYear('updated_at', $currentYear);
+            $selectedYear = $currentYear; // Set the selected year to the current year
+        }
+    
+        $blotter_records = $blotter_records->latest()->get();
+    
+        return view('frontend.barangay.barangay_blotter_records', compact('blotter_records', 'selectedYear'));
+    }
+    
+    
 
     public function CreateBlotterRecord(){
 
@@ -96,9 +131,6 @@ class BarangayBlotterRecordsController extends Controller
             'complainant_address' => $request->complainant_address,
             'settled_cases' => $request->settled_cases,
             'action_taken' => $request->action_taken,
-            
-            
-        
        ]);
 
        $notification = array(
@@ -159,85 +191,461 @@ public function MarkBlotterRecordAsDone(Request $request){
 
    } // End method
  
-public function GeneratePDF()
-{
-    // Set the paper size and orientation
-    $pdf = Pdf::setPaper('legal', 'landscape')->loadView('pdf.generate_blotter', ['imagePath' => public_path('image/logo.png')]);
+// public function FirstQuarter()
+// {
 
-    // Modify the response to display the PDF in the browser.
+//     $blotter = BarangayBlotterRecords::latest()->limit(1)->get();
+//     $pdf = PDF::setPaper('legal', 'landscape')->loadView('pdf.generate_blotter1', [
+//         'blotters' => $blotter,
+//         'imagePath' => public_path('image/logo.png'),
+//     ]);
+//     return $pdf->stream('generate_blotter.pdf');
+// }
+
+public function FirstQuarter()
+{
+    $currentYear = date('Y');
+    
+    // Fetching counts directly from the database
+    $criminalCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 1) // October
+        ->whereMonth('updated_at', '<=', 3) // December
+        ->where('nature_cases', 'criminal')
+        ->count();
+
+    $civilCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 1) // October
+        ->whereMonth('updated_at', '<=', 3) // December
+        ->where('nature_cases', 'civil')
+        ->count();
+
+    $othersCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 1) // October
+        ->whereMonth('updated_at', '<=', 3) // December
+        ->where('nature_cases', 'others')
+        ->count();
+
+    $totalCount = $criminalCount + $civilCount + $othersCount;
+
+    $mediationCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 1) // October
+        ->whereMonth('updated_at', '<=', 3) // December
+        ->where('settled_cases', 'mediation')
+        ->count();
+
+    $conciliatedCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 1) // October
+        ->whereMonth('updated_at', '<=', 3) // December
+        ->where('settled_cases', 'conciliated')
+        ->count();
+
+    $arbitrutionCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 1) // October
+        ->whereMonth('updated_at', '<=', 3) // December
+        ->where('settled_cases', 'arbitrution')
+        ->count();
+
+        $totalSettled = $mediationCount + $conciliatedCount + $arbitrutionCount;
+
+    
+    $repudiatedCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 1) // October
+        ->whereMonth('updated_at', '<=', 3) // December
+        ->where('action_taken', 'repudiated')
+        ->count();
+
+    $dismissedCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 1) // October
+        ->whereMonth('updated_at', '<=', 3) // December
+        ->where('action_taken', 'dismissed')
+        ->count();
+
+    $referredCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 1) // October
+        ->whereMonth('updated_at', '<=', 3) // December
+        ->where('action_taken', 'referred')
+        ->count();
+    
+    $certifiedCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 1) // October
+        ->whereMonth('updated_at', '<=', 3) // December
+        ->where('action_taken', 'certified')
+        ->count();
+
+    $pendingCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 1) // October
+        ->whereMonth('updated_at', '<=', 3) // December
+        ->where('action_taken', 'pending')
+        ->count();
+
+
+    $totalAction = $repudiatedCount + $dismissedCount + $referredCount +  
+    $certifiedCount + $pendingCount;
+
+    $grandTotal = $totalCount + $totalSettled + $totalAction;
+
+    $pdf = PDF::setPaper('legal', 'landscape')->loadView('pdf.generate_blotter1', [
+        'criminalCount' => $criminalCount,
+        'civilCount' =>  $civilCount,
+        'othersCount' =>  $othersCount,
+        'totalCount' =>  $totalCount,
+        'mediationCount' =>  $mediationCount,
+        'conciliatedCount' => $conciliatedCount,
+        'arbitrutionCount' => $arbitrutionCount,
+        'totalSettled' =>  $totalSettled,
+        'repudiatedCount' => $repudiatedCount,
+        'dismissedCount' =>  $dismissedCount,
+        'referredCount' => $referredCount,
+        'certifiedCount' => $certifiedCount,
+        'pendingCount' => $pendingCount,
+        'totalAction' => $totalAction,
+        'grandTotal' => $grandTotal,
+        'imagePath' => public_path('image/logo.png'),
+        
+    ]);
     return $pdf->stream('generate_blotter.pdf');
 }
 
-public function displayQuarterlyData()
+
+public function SecondQuarter()
 {
-    // Determine the current quarter based on the current date
-    $currentDate = now();
-    $currentQuarter = ceil($currentDate->format('n') / 3); // Calculate the current quarter
-
-    // Calculate date ranges for the current quarter
-    switch ($currentQuarter) {
-        case 1:
-            $startQuarter = $currentDate->format('Y') . '-01-01';
-            $endQuarter = $currentDate->format('Y') . '-03-31';
-            break;
-        case 2:
-            $startQuarter = $currentDate->format('Y') . '-04-01';
-            $endQuarter = $currentDate->format('Y') . '-06-30';
-            break;
-        case 3:
-            $startQuarter = $currentDate->format('Y') . '-07-01';
-            $endQuarter = $currentDate->format('Y') . '-09-30';
-            break;
-        case 4:
-            $startQuarter = $currentDate->format('Y') . '-10-01';
-            $endQuarter = $currentDate->format('Y') . '-12-31';
-            break;
-    }
-
-    // Fetch data for 'Mediation' in the current quarter
-    $MediationCount = BarangayBlotterRecords::whereBetween('created_at', [$startQuarter, $endQuarter])
-        ->where('settled_cases', 'Mediation')
+    $currentYear = date('Y');
+    
+    // Fetching counts directly from the database
+    $criminalCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 4) // October
+        ->whereMonth('updated_at', '<=', 6) // December
+        ->where('nature_cases', 'criminal')
         ->count();
 
-    // Fetch data for 'Conciliated' in the current quarter
-    $ConciliatedCount = BarangayBlotterRecords::whereBetween('created_at', [$startQuarter, $endQuarter])
-        ->where('settled_cases', 'Conciliated')
+    $civilCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 4) // October
+        ->whereMonth('updated_at', '<=', 6) // December
+        ->where('nature_cases', 'civil')
         ->count();
 
-    $ArbitrutionCount = BarangayBlotterRecords::whereBetween('created_at', [$startQuarter, $endQuarter])
-        ->where('settled_cases', 'Arbitrution')
+    $othersCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 4) // October
+        ->whereMonth('updated_at', '<=', 6) // December
+        ->where('nature_cases', 'others')
         ->count();
 
-    $RepudiatedCount = BarangayBlotterRecords::whereBetween('created_at', [$startQuarter, $endQuarter])
-        ->where('action_taken', 'Repudiated')
+    $totalCount = $criminalCount + $civilCount + $othersCount;
+
+    $mediationCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 4) // October
+        ->whereMonth('updated_at', '<=', 6) // December
+        ->where('settled_cases', 'mediation')
         ->count();
 
-    $DismissedCount = BarangayBlotterRecords::whereBetween('created_at', [$startQuarter, $endQuarter])
-        ->where('action_taken', 'Dismissed')
+    $conciliatedCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 4) // October
+        ->whereMonth('updated_at', '<=', 6) // December
+        ->where('settled_cases', 'conciliated')
         ->count();
 
-    $ReferredCount = BarangayBlotterRecords::whereBetween('created_at', [$startQuarter, $endQuarter])
-        ->where('action_taken', 'Referred')
+    $arbitrutionCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 4) // October
+        ->whereMonth('updated_at', '<=', 6) // December
+        ->where('settled_cases', 'arbitrution')
         ->count();
 
-    $CertifiedCount = BarangayBlotterRecords::whereBetween('created_at', [$startQuarter, $endQuarter])
-        ->where('action_taken', 'Certified')
+        $totalSettled = $mediationCount + $conciliatedCount + $arbitrutionCount;
+
+    
+    $repudiatedCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 4) // October
+        ->whereMonth('updated_at', '<=', 6) // December
+        ->where('action_taken', 'repudiated')
         ->count();
 
-    $PendingCount = BarangayBlotterRecords::whereBetween('created_at', [$startQuarter, $endQuarter])
-        ->where('action_taken', 'Pending')
+    $dismissedCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 4) // October
+        ->whereMonth('updated_at', '<=', 6) // December
+        ->where('action_taken', 'dismissed')
+        ->count();
+
+    $referredCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 4) // October
+        ->whereMonth('updated_at', '<=', 6) // December
+        ->where('action_taken', 'referred')
         ->count();
     
+    $certifiedCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 4) // October
+        ->whereMonth('updated_at', '<=', 6) // December
+        ->where('action_taken', 'certified')
+        ->count();
+
+    $pendingCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 4) // October
+        ->whereMonth('updated_at', '<=', 6) // December
+        ->where('action_taken', 'pending')
+        ->count();
 
 
-    return view('frontend.barangay.barangay_blotter_records', compact('MediationCount', 'ConciliatedCount','PendingCount', 'CertifiedCount', 
-    'ReferredCount', 'DismissedCount',  'RepudiatedCount', 'ArbitrutionCount'));
+    $totalAction = $repudiatedCount + $dismissedCount + $referredCount +  
+    $certifiedCount + $pendingCount;
+
+    $grandTotal = $totalCount + $totalSettled + $totalAction;
+
+    $pdf = PDF::setPaper('legal', 'landscape')->loadView('pdf.generate_blotter2', [
+        'criminalCount' => $criminalCount,
+        'civilCount' =>  $civilCount,
+        'othersCount' =>  $othersCount,
+        'totalCount' =>  $totalCount,
+        'mediationCount' =>  $mediationCount,
+        'conciliatedCount' => $conciliatedCount,
+        'arbitrutionCount' => $arbitrutionCount,
+        'totalSettled' =>  $totalSettled,
+        'repudiatedCount' => $repudiatedCount,
+        'dismissedCount' =>  $dismissedCount,
+        'referredCount' => $referredCount,
+        'certifiedCount' => $certifiedCount,
+        'pendingCount' => $pendingCount,
+        'totalAction' => $totalAction,
+        'grandTotal' => $grandTotal,
+        'imagePath' => public_path('image/logo.png'),
+        
+    ]);
+    return $pdf->stream('generate_blotter.pdf');
+}
+
+
+public function ThirdQuarter()
+{
+    $currentYear = date('Y');
+    
+    // Fetching counts directly from the database
+    $criminalCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 7) // October
+        ->whereMonth('updated_at', '<=', 9) // December
+        ->where('nature_cases', 'criminal')
+        ->count();
+
+    $civilCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 7) // October
+        ->whereMonth('updated_at', '<=', 9) // December
+        ->where('nature_cases', 'civil')
+        ->count();
+
+    $othersCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 7) // October
+        ->whereMonth('updated_at', '<=', 9) // December
+        ->where('nature_cases', 'others')
+        ->count();
+
+    $totalCount = $criminalCount + $civilCount + $othersCount;
+
+    $mediationCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 7) // October
+        ->whereMonth('updated_at', '<=', 9) // December
+        ->where('settled_cases', 'mediation')
+        ->count();
+
+    $conciliatedCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 7) // October
+        ->whereMonth('updated_at', '<=', 9) // December
+        ->where('settled_cases', 'conciliated')
+        ->count();
+
+    $arbitrutionCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 7) // October
+        ->whereMonth('updated_at', '<=', 9) // December
+        ->where('settled_cases', 'arbitrution')
+        ->count();
+
+        $totalSettled = $mediationCount + $conciliatedCount + $arbitrutionCount;
+
+    
+    $repudiatedCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 7) // October
+        ->whereMonth('updated_at', '<=', 9) // December
+        ->where('action_taken', 'repudiated')
+        ->count();
+
+    $dismissedCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 7) // October
+        ->whereMonth('updated_at', '<=', 9) // December
+        ->where('action_taken', 'dismissed')
+        ->count();
+
+    $referredCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 7) // October
+        ->whereMonth('updated_at', '<=', 9) // December
+        ->where('action_taken', 'referred')
+        ->count();
+    
+    $certifiedCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 7) // October
+        ->whereMonth('updated_at', '<=', 9) // December
+        ->where('action_taken', 'certified')
+        ->count();
+
+    $pendingCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 7) // October
+        ->whereMonth('updated_at', '<=', 9) // December
+        ->where('action_taken', 'pending')
+        ->count();
+
+
+    $totalAction = $repudiatedCount + $dismissedCount + $referredCount +  
+    $certifiedCount + $pendingCount;
+
+    $grandTotal = $totalCount + $totalSettled + $totalAction;
+
+    $pdf = PDF::setPaper('legal', 'landscape')->loadView('pdf.generate_blotter3', [
+        'criminalCount' => $criminalCount,
+        'civilCount' =>  $civilCount,
+        'othersCount' =>  $othersCount,
+        'totalCount' =>  $totalCount,
+        'mediationCount' =>  $mediationCount,
+        'conciliatedCount' => $conciliatedCount,
+        'arbitrutionCount' => $arbitrutionCount,
+        'totalSettled' =>  $totalSettled,
+        'repudiatedCount' => $repudiatedCount,
+        'dismissedCount' =>  $dismissedCount,
+        'referredCount' => $referredCount,
+        'certifiedCount' => $certifiedCount,
+        'pendingCount' => $pendingCount,
+        'totalAction' => $totalAction,
+        'grandTotal' => $grandTotal,
+        'imagePath' => public_path('image/logo.png'),
+        
+    ]);
+    return $pdf->stream('generate_blotter.pdf');
 }
 
 
 
 
- 
+// public function FourthQuarter()
+// {
+//     $currentYear = date('Y');
+//     $blotter = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+//         ->whereMonth('updated_at', '>=', 10) // January
+//         ->whereMonth('updated_at', '<=', 12) // March
+//         ->latest()
+//         ->get();
+
+//     // Check if no records were found
+//     if ($blotter->isEmpty()) {
+//         return "No data available for the first quarter of $currentYear.";
+//     }
+
+//     $pdf = PDF::setPaper('legal', 'landscape')->loadView('pdf.generate_blotter1', [
+//         'blotters' => $blotter,
+//         'imagePath' => public_path('image/logo.png'),
+//     ]);
+    
+//     return $pdf->stream('generate_blotter.pdf');
+// }
+public function FourthQuarter()
+{
+   
+    
+    $currentYear = date('Y');
+    
+    // Fetching counts directly from the database
+    $criminalCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 10) // October
+        ->whereMonth('updated_at', '<=', 12) // December
+        ->where('nature_cases', 'criminal')
+        ->count();
+
+    $civilCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 10) // October
+        ->whereMonth('updated_at', '<=', 12) // December
+        ->where('nature_cases', 'civil')
+        ->count();
+
+    $othersCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 10) // October
+        ->whereMonth('updated_at', '<=', 12) // December
+        ->where('nature_cases', 'others')
+        ->count();
+
+    $totalCount = $criminalCount + $civilCount + $othersCount;
+
+    $mediationCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 10) // October
+        ->whereMonth('updated_at', '<=', 12) // December
+        ->where('settled_cases', 'mediation')
+        ->count();
+
+    $conciliatedCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 10) // October
+        ->whereMonth('updated_at', '<=', 12) // December
+        ->where('settled_cases', 'conciliated')
+        ->count();
+
+    $arbitrutionCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 10) // October
+        ->whereMonth('updated_at', '<=', 12) // December
+        ->where('settled_cases', 'arbitrution')
+        ->count();
+
+        $totalSettled = $mediationCount + $conciliatedCount + $arbitrutionCount;
+
+    
+    $repudiatedCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 10) // October
+        ->whereMonth('updated_at', '<=', 12) // December
+        ->where('action_taken', 'repudiated')
+        ->count();
+
+    $dismissedCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 10) // October
+        ->whereMonth('updated_at', '<=', 12) // December
+        ->where('action_taken', 'dismissed')
+        ->count();
+
+    $referredCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 10) // October
+        ->whereMonth('updated_at', '<=', 12) // December
+        ->where('action_taken', 'referred')
+        ->count();
+    
+    $certifiedCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 10) // October
+        ->whereMonth('updated_at', '<=', 12) // December
+        ->where('action_taken', 'certified')
+        ->count();
+
+    $pendingCount = BarangayBlotterRecords::whereYear('updated_at', $currentYear)
+        ->whereMonth('updated_at', '>=', 10) // October
+        ->whereMonth('updated_at', '<=', 12) // December
+        ->where('action_taken', 'pending')
+        ->count();
+
+
+    $totalAction = $repudiatedCount + $dismissedCount + $referredCount +  
+    $certifiedCount + $pendingCount;
+
+    $grandTotal = $totalCount + $totalSettled + $totalAction;
+
+    $pdf = PDF::setPaper('legal', 'landscape')->loadView('pdf.generate_blotter4', [
+        'criminalCount' => $criminalCount,
+        'civilCount' =>  $civilCount,
+        'othersCount' =>  $othersCount,
+        'totalCount' =>  $totalCount,
+        'mediationCount' =>  $mediationCount,
+        'conciliatedCount' => $conciliatedCount,
+        'arbitrutionCount' => $arbitrutionCount,
+        'totalSettled' =>  $totalSettled,
+        'repudiatedCount' => $repudiatedCount,
+        'dismissedCount' =>  $dismissedCount,
+        'referredCount' => $referredCount,
+        'certifiedCount' => $certifiedCount,
+        'pendingCount' => $pendingCount,
+        'totalAction' => $totalAction,
+        'grandTotal' => $grandTotal,
+        'imagePath' => public_path('image/logo.png'),
+        
+    ]);
+    return $pdf->stream('generate_blotter.pdf');
+}
+
 
 
 }

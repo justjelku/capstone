@@ -141,7 +141,7 @@
                 </div>
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                     <p style="text-align: justify; margin-top: 90px">Barangay Imbatug, situated in the municipality of Baungon within the province of Bukidnon, Philippines, has a history closely tied to the nation's colonial past and its development as a local community.</p>
-                    <p class="mb-4">-Kap.Gelbes Vergara</p>
+                    <p class="mb-4">-Barangay Kagawad</p>
                 </div>
             </div>
         </div>
@@ -159,7 +159,7 @@
             </div>
             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                 <p style="text-align: justify; margin-top: 90px">Barangay Imbatug, situated in the municipality of Baungon within the province of Bukidnon, Philippines, has a history closely tied to the nation's colonial past and its development as a local community.</p>
-                <p class="mb-4">-Kap.Gelbes Vergara</p>
+                <p class="mb-4">-Barangay Kagawad</p>
             </div>
         </div>
     </div>

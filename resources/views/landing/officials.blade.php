@@ -121,7 +121,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off1.jpg') }}" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5>Gelbes E. Vergara</h5>
+                            <h5>Name Here</h5>
                             <p class="text-primary">Barangay Captain</p>
                         </div>
                     </div>
@@ -132,7 +132,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off8.jpg') }}" alt="" style="width: 300px">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5> Francis A. Beja</h5>
+                            <h5>Name Here</h5>
                             <p class="text-primary">SK Chairperson</p>
                             {{-- <div class="team-social text-center">
                                 <a class="btn btn-square" href="https://www.facebook.com/Imbatug16"><i class="fab fa-facebook-f"></i></a>
@@ -150,7 +150,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off2.jpg') }}" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5>Annabelle M. Maputol</h5>
+                            <h5>Name Here</h5>
                             <p class="text-primary">Barangay Kagawad</p>
                         </div>
                     </div>
@@ -161,7 +161,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off3.jpg') }}" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5>Marifel L. Palma</h5>
+                            <h5>Name Here</h5>
                             <p class="text-primary">Barangay Kagawad</p>
                             {{-- <div class="team-social text-center">
                                 <a class="btn btn-square" href="https://www.facebook.com/Imbatug16"><i class="fab fa-facebook-f"></i></a>
@@ -177,7 +177,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off3.jpg') }}" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5>Rosa S. Rapirap</h5>
+                            <h5>Name Here</h5>
                             <p class="text-primary">Barangay Kagawad</p>
                             {{-- <div class="team-social text-center">
                                 <a class="btn btn-square" href="https://www.facebook.com/Imbatug16"><i class="fab fa-facebook-f"></i></a>
@@ -193,7 +193,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off3.jpg') }}" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5>Marjorie C. Jaraula</h5>
+                            <h5>Name Here</h5>
                             <p class="text-primary">Barangay Kagawad</p>
                             {{-- <div class="team-social text-center">
                                 <a class="btn btn-square" href="https://www.facebook.com/Imbatug16"><i class="fab fa-facebook-f"></i></a>
@@ -212,7 +212,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off2.jpg') }}" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5> Mardine Y. Evangelista</h5>
+                            <h5> Name Here</h5>
                             <p class="text-primary">Barangay Kagawad</p>
                         </div>
                     </div>
@@ -223,7 +223,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off1.jpg') }}" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5> Marlo A. Ligan</h5>
+                            <h5>Name Here</h5>
                             <p class="text-primary">Barangay Kagawad</p>
                             {{-- <div class="team-social text-center">
                                 <a class="btn btn-square" href="https://www.facebook.com/Imbatug16"><i class="fab fa-facebook-f"></i></a>
@@ -239,7 +239,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off1.jpg') }}" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5>Mark Anthony A. Botes</h5>
+                            <h5>Name Here</h5>
                             <p class="text-primary">Barangay Kagawad</p>
                             {{-- <div class="team-social text-center">
                                 <a class="btn btn-square" href="https://www.facebook.com/Imbatug16"><i class="fab fa-facebook-f"></i></a>
@@ -255,7 +255,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off1.jpg') }}" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5> Jeson A. Ministerio</h5>
+                            <h5>Name Here</h5>
                             <p class="text-primary">Barangay Secretary</p>
                             {{-- <div class="team-social text-center">
                                 <a class="btn btn-square" href="https://www.facebook.com/Imbatug16"><i class="fab fa-facebook-f"></i></a>
@@ -283,7 +283,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off1.jpg') }}" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5>Gelbes E. Vergara</h5>
+                            <h5>Name Here</h5>
                             <p class="text-primary">Barangay Captain</p>
                         </div>
                     </div>
@@ -294,7 +294,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off8.jpg') }}" alt="" style="width: 300px">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5> Francis A. Beja</h5>
+                            <h5>Name Here</h5>
                             <p class="text-primary">SK Chairperson</p>
                             {{-- <div class="team-social text-center">
                                 <a class="btn btn-square" href="https://www.facebook.com/Imbatug16"><i class="fab fa-facebook-f"></i></a>
@@ -312,7 +312,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off2.jpg') }}" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5>Annabelle M. Maputol</h5>
+                            <h5>Name Here</h5>
                             <p class="text-primary">Barangay Kagawad</p>
                         </div>
                     </div>
@@ -323,7 +323,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off3.jpg') }}" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5>Marifel L. Palma</h5>
+                            <h5>Name Here</h5>
                             <p class="text-primary">Barangay Kagawad</p>
                             {{-- <div class="team-social text-center">
                                 <a class="btn btn-square" href="https://www.facebook.com/Imbatug16"><i class="fab fa-facebook-f"></i></a>
@@ -339,7 +339,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off3.jpg') }}" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5>Rosa S. Rapirap</h5>
+                            <h5>Name Here</h5>
                             <p class="text-primary">Barangay Kagawad</p>
                             {{-- <div class="team-social text-center">
                                 <a class="btn btn-square" href="https://www.facebook.com/Imbatug16"><i class="fab fa-facebook-f"></i></a>
@@ -355,7 +355,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off3.jpg') }}" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5>Marjorie C. Jaraula</h5>
+                            <h5>Name Here</h5>
                             <p class="text-primary">Barangay Kagawad</p>
                             {{-- <div class="team-social text-center">
                                 <a class="btn btn-square" href="https://www.facebook.com/Imbatug16"><i class="fab fa-facebook-f"></i></a>
@@ -374,7 +374,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off2.jpg') }}" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5> Mardine Y. Evangelista</h5>
+                            <h5>Name Here</h5>
                             <p class="text-primary">Barangay Kagawad</p>
                         </div>
                     </div>
@@ -385,7 +385,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off1.jpg') }}" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5> Marlo A. Ligan</h5>
+                            <h5>Name Here</h5>
                             <p class="text-primary">Barangay Kagawad</p>
                             {{-- <div class="team-social text-center">
                                 <a class="btn btn-square" href="https://www.facebook.com/Imbatug16"><i class="fab fa-facebook-f"></i></a>
@@ -401,7 +401,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off1.jpg') }}" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5>Mark Anthony A. Botes</h5>
+                            <h5>Name Here</h5>
                             <p class="text-primary">Barangay Kagawad</p>
                             {{-- <div class="team-social text-center">
                                 <a class="btn btn-square" href="https://www.facebook.com/Imbatug16"><i class="fab fa-facebook-f"></i></a>
@@ -417,7 +417,7 @@
                             <img class="img-fluid" src="{{ asset('frontend/img/off1.jpg') }}" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
-                            <h5> Jeson A. Ministerio</h5>
+                            <h5>Name Here</h5>
                             <p class="text-primary">Barangay Secretary</p>
                             {{-- <div class="team-social text-center">
                                 <a class="btn btn-square" href="https://www.facebook.com/Imbatug16"><i class="fab fa-facebook-f"></i></a>

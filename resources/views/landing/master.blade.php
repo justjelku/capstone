@@ -75,7 +75,7 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top p-0 wow fadeIn" data-wow-delay="0.1s" style="background: gainsboro">
         <a href="{{ route('barangay.home') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <h3 class="m-0 text-primary"><img src="{{ asset('upload/imbatug logo.png') }}" alt="Logo" style="width: 50px; height: auto; margin-right: 10px;">Barangay Imbatug</h3>
+            <h3 class="m-0 text-primary"><img src="{{ asset('image/logo.png') }}" alt="Logo" style="width: 50px; height: auto; margin-right: 10px;">Barangay Imbatug</h3>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -106,26 +106,26 @@
         <div class="row g-0 align-items-center flex-column-reverse flex-lg-row">
             <div class="col-lg-6 p-5 wow fadeIn" data-wow-delay="0.1s" style="background:white">
             <div class="text-center mb-5"> <!-- Center the image and content -->
-                <img src="{{ asset('upload/imbatug logo.png') }}" alt="Logo" style="width: 250px; height: auto; margin: 20px auto; margin-top:-20px;">
+                <img src="{{ asset('image/logo.png') }}" alt="Logo" style="width: 250px; height: auto; margin: 20px auto; margin-top:-20px;">
             </div>
                 <h1 class="display-8 text-black mb-5" style="margin-top: -30px;">Imbatug, formerly Poblacion, is a barangay in the municipality of Baungon, in the province of Bukidnon.</h1>
                 <div class="row g-4">
                     <div class="col-sm-4">
                         {{-- <div class="border-start border-black ps-4"> --}}
-                            <h2 class="mb-1" data-toggle="counter-up" style="color: #E1702C">123</h2>
+                            <h2 class="mb-1" data-toggle="counter-up" style="color: #E1702C">{{ \App\Models\BarangayResidents::count() }}</h2>
                             <p class="mb-0" style="color: #E1702C">Total Population</p>
                         {{-- </div> --}}
                     </div>
                     <div class="col-sm-4">
                         <div class="border-start border-black ps-4">
-                            <h2 class=" mb-1" data-toggle="counter-up" style="color: #E1702C">1234</h2>
+                            <h2 class=" mb-1" data-toggle="counter-up" style="color: #E1702C">{{ \App\Models\BarangayResidents::distinct('registered_voter')->count() }}</h2>
                             <p class="mb-0" style="color: #E1702C" >Registered Voters</p>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="border-start border-black ps-4">
-                            <h2 class="mb-1" data-toggle="counter-up" style="color: #E1702C">12345</h2>
-                            <p class=" mb-0" style="color:#E1702C">Barangay Officials</p>
+                            <h2 class="mb-1" data-toggle="counter-up" style="color: #E1702C">{{ \App\Models\BarangayResidents::where('family_status','Single Parent')->count() }}</h2>
+                            <p class=" mb-0" style="color:#E1702C">Total Solo Parent</p>
                         </div>
                     </div>
                 </div>
@@ -259,40 +259,40 @@
             </div>
             <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
                 <div class="testimonial-item text-center">
-                    <p style="color: #E1702C; font-weight: bold; font-size:30px">Barangay  <br> Clearance</p>
+                    <p style="color: #E1702C; font-weight: bold; font-size:30px">Barangay  <br> Certification</p>
                     <div class="testimonial-text rounded text-center p-4">
                         <h5 class="mb-1">Requirements</h5>
-                        <span class="fst-italic">Profession</span>
+                        <span class="fst-italic"></span>
                     </div>
                 </div>
                 <div class="testimonial-item text-center">
                     <p style="color: #E1702C; font-weight: bold; font-size:30px">Business <br> Clearance</p>
                     <div class="testimonial-text rounded text-center p-4">
                         <h5 class="mb-1">Requirements</h5>
-                        <span class="fst-italic">Profession</span>
+                        <span class="fst-italic"></span>
                     </div>
                 </div>
                 <div class="testimonial-item text-center">
-                    <p style="color: #E1702C; font-weight: bold; font-size:30px ;margin-top: 20px">Indigency</p>
+                    <p style="color: #E1702C; font-weight: bold; font-size:30px ;margin-top: 20px">Barangay  <br> Clearance</p>
                     <div class="testimonial-text rounded text-center p-4">
                         <h5 class="mb-1">Requirements</h5>
-                        <span class="fst-italic">Profession</span>
+                        <span class="fst-italic"></span>
                     </div>
                 </div>
-                <div class="testimonial-item text-center">
+                {{-- <div class="testimonial-item text-center">
                     <p style="color: #E1702C; font-weight: bold; font-size:30px;margin-top: 20px">Residency </p>
                     <div class="testimonial-text rounded text-center p-4">
                         <h5 class="mb-1">Requirements</h5>
-                        <span class="fst-italic">Profession</span>
+                        <span class="fst-italic"></span>
                     </div>
-                </div>
-                <div class="testimonial-item text-center">
+                </div> --}}
+                {{-- <div class="testimonial-item text-center">
                     <p style="color: #E1702C; font-weight: bold; font-size:30px ;margin-top: 20px">Summon</p>
                     <div class="testimonial-text rounded text-center p-4">
                         <h5 class="mb-1">Requirements</h5>
-                        <span class="fst-italic">Profession</span>
+                        <span class="fst-italic"></span>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -651,7 +651,7 @@
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6" style="text-align: center; margin-right: 120px; ">
-                    <img src="{{ asset('upload/imbatug logo.png') }}" alt="Image Description" style="width: 200px; height: auto; margin-left: -15px;">
+                    <img src="{{ asset('image/logo.png') }}" alt="Image Description" style="width: 200px; height: auto; margin-left: -15px;">
                     <p>Province of Bukidnon <br>
                     Municipality of Baungon <br>
                     Barangay Imbatug</p>

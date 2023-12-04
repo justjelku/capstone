@@ -77,12 +77,13 @@ span {
             <p>OFFICE OF THE PUNONG BARANGAY</p> 
             <p style="margin-bottom: 2px;">SUMMARY OF REPORT: CASES FILED, ACTION TAKEN</p>
             <p style="margin-bottom: 2px;">AND OTHER RELATED INFORMATION ON KP IMPLEMENTATION</p>
-            <p style="margin-bottom: 2px;">3RD QUARTER CY 2023</p>
+            <p style="margin-bottom: 2px;">3rd QUARTER CY 2023</p>
         </div>
 
     </div>
     <br>
     <table class="table table-bordered">
+       
         <thead>
             <tr>
               <th colspan="">Name of <br> Barangay</th>
@@ -97,7 +98,7 @@ span {
                 <th rowspan="2" style="text-align: center; vertical-align: top">Criminal</th> 
                 <th rowspan="2" style="text-align: center; vertical-align: top">Civil</th> 
                 <th rowspan="2" style="text-align: center; vertical-align: top">Others</th> 
-                <th rowspan="2" style="text-align: center; vertical-align: top">Total</th> 
+                <th rowspan="2" style="text-align: center; vertical-align: top">TOTAL</th> 
                 <th colspan="4">SETTLED CASES</th>
                 <th rowspan="2"  style="text-align: center; vertical-align: top">Repudiated</th> 
                 <th rowspan="2"  style="text-align: center; vertical-align: top">Dismissed</th>
@@ -105,7 +106,7 @@ span {
                 <th rowspan="2"  style="text-align: center; vertical-align: top">Certified</th>
                 <th rowspan="2"  style="text-align: center; vertical-align: top">Pending</th>
                 <th rowspan="2"  style="text-align: center; vertical-align: top">Total</th>
-                <th rowspan="2"  style="text-align: center; vertical-align: top">Grand  <br> Total</th>
+                <th rowspan="2"  style="text-align: center; vertical-align: top">GRAND  <br> TOTAL</th>
                </tr> 
 
           </thead>
@@ -113,34 +114,58 @@ span {
 
 <tbody>
     <tr>
-        <td style="font-weight: bold; padding:2px">Mediation</td>
-        <td style="font-weight: bold; padding:2px">Conciliated</td>
-        <td style="font-weight: bold; padding:2px">Abitruation</td>
-        <td style="font-weight: bold; padding:2px">Total</td>
+        <td style="font-weight: bold; padding:2px;text-align: center;">Mediation</td>
+        <td style="font-weight: bold; padding:2px;text-align: center;">Conciliated</td>
+        <td style="font-weight: bold; padding:2px;text-align: center;">Arbitrution</td>
+        <td style="font-weight: bold; padding:2px;text-align: center;">TOTAL</td>
         
       </tr>
 
-    <tr>
-        <td style="padding-bottom: 90px">Data for Criminal</td>
-        <td >Data for Civil</td>
-        <td>Data for Others</td>
-        <td >Data for Total</td>
-        <td >Data for Mediation</td>
-        <td >Data for Conciliated</td>
-        <td >Data for Abitruation</td>
-        <td >Data for Total (in Settled Cases)</td>
-        <td >Data for Repudiated</td>
-        <td >Data for Dismissed</td>
-        <td>Data for Referred</td>
-        <td>Data for Certified</td>
-        <td >Data for Pending</td>
-        <td >Data for Total (in Action Taken)</td>
-        <td>Data for Grand Total</td>
+ 
+ 
+        <tr>
+            <td style="padding-bottom: 90px; text-align:center"> {{ $criminalCount }}</td>
+            <td style="padding-bottom: 90px; text-align:center"> {{ $civilCount }}</td>
+            <td style="padding-bottom: 90px; text-align:center"> {{ $othersCount }}</td>
+            <td style="padding-bottom: 90px; text-align:center"> {{ $totalCount }}</td>
+            <td style="padding-bottom: 90px; text-align:center"> {{ $mediationCount }}</td>
+            <td style="padding-bottom: 90px; text-align:center"> {{ $conciliatedCount }}</td>
+            <td style="padding-bottom: 90px; text-align:center"> {{ $arbitrutionCount }}</td>
+            <td style="padding-bottom: 90px; text-align:center"> {{ $totalSettled }}</td>
+    
+            <td style="padding-bottom: 90px; text-align:center"> {{ $repudiatedCount }}</td>
+            <td style="padding-bottom: 90px; text-align:center"> {{ $dismissedCount }}</td>
+            <td style="padding-bottom: 90px; text-align:center"> {{ $referredCount }}</td>
+            <td style="padding-bottom: 90px; text-align:center"> {{ $certifiedCount }}</td>
+            <td style="padding-bottom: 90px; text-align:center"> {{ $pendingCount }}</td>
+            <td style="padding-bottom: 90px; text-align:center"> {{ $totalAction }}</td>
+            <td style="padding-bottom: 90px; text-align:center"> {{ $grandTotal }}</td>    
     </tr>
-    <!-- You can add more rows with similar structure as needed -->
+   
 </tbody>
 </table>
+<br>
+
+    <div>
+         Prepared by: 
+         <br>
+        <p style="margin-left: 50px">Name <br> Position</p>
+    </div>
+
+    
+    <div style="margin-left: 70%; margin-top:-100px">
+        Prepared by: 
+        <p style="margin-left: 50px">Name <br> Position</p>
+    </div>
+
+
+
+
     
 </body>
+
+
+
+
 </html>
 

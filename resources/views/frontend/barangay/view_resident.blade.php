@@ -26,12 +26,7 @@
             <div class="col-md-4">
                 <div class="card stretch-card">
                     <div class="card-body">
-                        <!-- <div class="d-flex align-items-baseline position-absolute bottom-0 end-0 m-3">
-                            <i class="link-icon" data-feather="help-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Hover and click on the image frame to browse the file."></i>
-                            </div> -->
-
                        
-                        
                         <div class="d-flex justify-content-center">
     <div class="resident-image add-photo-container" style="width: 300px; height: 300px; overflow: hidden; border-radius: 50%;">
         <div class="d-flex justify-content-center" style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden;">

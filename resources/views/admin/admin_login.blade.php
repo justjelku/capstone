@@ -55,7 +55,7 @@
                         <div class="row">
                             <div class="col-md-5 pe-md-0">
                                 <div class="text-center">
-                                    <img src="{{ asset('upload/imbatug logo.png') }}" alt="Logo" class="img-fluid" style="width: 200px; height:auto; margin-top:45px;">
+                                    <img src="{{ asset('image/logo.png') }}" alt="Logo" class="img-fluid" style="width: 200px; height:auto; margin-top:45px;">
                                     <p class="mt-2" style="font-size: 30px">Brgy. Imbatug</p>
                                 </div>
                             </div>                            

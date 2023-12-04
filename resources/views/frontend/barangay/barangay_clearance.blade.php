@@ -17,7 +17,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">Barangay Certificate</h6>
+                    <h6 class="card-title">Barangay Clearance</h6>
                     <div class="table-responsive">
                         <table id="dataTableExample" class="table border-secondary border-top table-bordered">
                             <thead>
@@ -67,7 +67,7 @@
         <div class="col-md-6 stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">Barangay Certificate Previewer</h6>
+                    <h6 class="card-title">Barangay Clearance Previewer</h6>
                     <iframe src="{{ route('pdf.clearancePDF') }}" width="100%" height="600"></iframe>
                 </div>
             </div>

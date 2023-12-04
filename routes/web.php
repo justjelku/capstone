@@ -96,6 +96,8 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
         Route::get('/delete/official/{id}', 'DeleteOfficial')->name('delete.official');
 
         Route::get('/view/official/{id}', 'ViewOfficial')->name('view.official');
+        Route::get('/api/officials/{id}', 'ViewOfficial');
+
 
 
     });
@@ -161,8 +163,7 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 
     // Barangay blotter records type all route
     Route::controller(BarangayBlotterRecordsController::class)->group(function(){
-
-    Route::get('/barangay/blotterrecords', 'BlotterRecords')->name('barangay.blotter.records');
+    Route::get('/barangay/blotter_records', 'BlotterRecords')->name('barangay.blotter.records');
 
     Route::get('/create/blotterrecord', 'CreateBlotterRecord')->name('create.blotter.record');
 
@@ -176,8 +177,11 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 
     Route::get('/view/blotterrecord/{id}', 'ViewBlotterRecord')->name('view.blotter.record');
     Route::put('/blotter-records/{id}/mark-as-done', 'MarkBlotterRecordAsDone')->name('mark-as-done.blotter.record');
-    Route::get('/generate-pdf', 'GeneratePDF')->name('generate-pdf');
-    Route::get('/quarterly-data',  'displayQuarterlyData') ->name('quarterlyData');
+    Route::get('/generate-pdf', 'FirstQuarter')->name('generate-pdf');
+    Route::get('/second-quarter', 'SecondQuarter')->name('second-quarter');
+    Route::get('/third-quarter', 'ThirdQuarter')->name('third-quarter');
+    Route::get('/fourth-quarter', 'FourthQuarter')->name('fourth-quarter');
+   
 
     
     });

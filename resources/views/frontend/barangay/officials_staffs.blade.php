@@ -53,6 +53,26 @@
   color:black;
 }
 
+.modal-body .col-sm-8 {
+    text-align: center;
+}
+.intro-title {
+  margin-bottom: 5px;
+  font-weight: 400;
+  color: #333;
+}
+
+@media (max-width: 575px) {
+  .modal-body .col-sm-4 {
+    text-align: center;
+    margin-top: 25px;
+  }
+}
+@media (min-width: 576px) {
+  .modal-dialog {
+      max-width: 650px;
+  }
+}
 
 </style>
 
@@ -76,7 +96,6 @@
             <button type="button" class="btn btn-primary" style="padding: 0.20rem 0.4rem; font-size: 0.8rem;" id="myBtn">Add Official</button>
           </div>
           <br>
-          {{-- <p class="text-muted mb-3">Barangay Imbatug<a href="#"> officials</a>.</p> --}}
           <div class="table-responsive">
             <table id="dataTableExample" class="table border-secondary border-top table-bordered table-hover table-striped">
               <thead  style="background:#FCD299">
@@ -118,29 +137,56 @@
                   @endphp
                   <td style="text-align: center; color: black;">{{ $termStart }}</td>
                   <td style="text-align: center; color: black;">{{ $termEnd }}</td>
-                  <td>
-                    <div style="text-align: center; color: black;">
-                      {{-- <a href="{{ route('view.official', $barangay_officials->id) }}">
-                        <button id="myBtn" class="btn btn-inverse-info btn-icon btn-xs" title="View more">
-                          <i data-feather="eye"></i>
-                        </button>
-                      </a> --}}
-                      <button id="officialBtn" class="btn btn-inverse-info btn-icon btn-xs" title="View more">
-                        <i data-feather="eye"></i> 
-                      </button>
-                    
-                    
-                      <a href="{{ route('edit.official', $barangay_officials->id) }}">
-                        <button type="button" class="btn btn-inverse-warning btn-icon btn-xs" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
-                          <i data-feather="edit"></i>
-                        </button>
-                      </a>
-                      <a href="{{ route('delete.official', $barangay_officials->id) }}" id="delete">
-                        <button type="button" class="btn btn-inverse-danger btn-icon btn-xs" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
-                          <i data-feather="trash"></i>
-                        </button>
-                      </a>
+                  <td style="text-align: center; vertical-align: middle;">
+                    @if ($barangay_officials->id)
+                    {{-- <button type="button" class="btn btn-inverse-info btn-icon btn-xs" onclick="openViewModalModal('')" data-bs-toggle="modal" data-bs-target="#exampleViewModal" data-bs-id="{{ $barangay_officials->id }}" data-bs-toggle="tooltip" data-bs-placement="top" title="View More">
+                      <i data-feather="eye"></i>
+                      
+                    </button> --}}
+                    <button class="open-modal-button  btn btn-inverse-info btn-icon btn-xs" data-id="{{ $barangay_officials->id }}" data-name="{{ $barangay_officials->name }}" data-position="{{ $barangay_officials->position }}" data-photo="{{ $barangay_officials->photo }}"
+                        term_start="{{ $barangay_officials->term_start }}" term_end="{{ $barangay_officials->term_end }}">   <i data-feather="eye"></i></button>
+                 
+
+                    <!-- Modal structure -->
+                    <div class="modal" id="viewModal">
+                      <div class="modal-content">
+                        <span class="close">&times;</span>
+                        
+                        <div>
+                            <div class="profile-picture" style="border-radius: 50%;
+                            width: 100px; height: 100px;">
+                                <img id="viewModalImage" class="circular-image" src="" alt="Profile Image">
+                            </div>
+                           
+                          <div style="color: black">
+                            <h4 style="font-size: 20px"><span id="viewModalName"></span></h4>
+                            <p style="font-size: 15px"><span id="viewModalPosition"></span></p>
+                            <br>
+                            <p><strong>Term Start</strong></p>
+                            <p><span id="termStart"></span></p>
+                            <br>
+                            <p><strong>Term End</strong></p>
+                            <p><span id="termEnd"></span></p>
+                          </div>
+ 
+                        </div>
+                      </div>
                     </div>
+
+                      {{-- <button type="button"  class="btn btn-inverse-warning btn-icon btn-xs" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
+                        <i data-feather="edit"></i>
+                      </button> --}}
+                      <button type="button" class="btn btn-inverse-warning btn-icon btn-xs" 
+                            data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" data-toggle="modal" data-target="#learnMore1"
+                            onclick="window.location.href='{{ route('edit.official', ['id' => $barangay_officials->id]) }}'">
+                        <i data-feather="edit"></i>
+                    </button>
+                      <button type="button" class="btn btn-inverse-danger btn-icon btn-xs" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
+                        <i data-feather="trash"></i>
+                      </button>
+                    @else
+                      <p>No resident data for this clearance</p>
+                    @endif
                   </td>
                 </tr>
                 @endforeach
@@ -355,52 +401,49 @@
   </div>
 </div>
 
-
-
-{{-- modal for view --}}
-
-<div class="modal fade" id="officialModal" tabindex="-1" role="dialog" aria-labelledby="officialModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="officialModalLabel">Official Information</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- Content will be loaded here dynamically -->
-        kjshdjksdjks
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+                   
 
 <script>
-var officialModal = document.getElementById("officialModal");
-var officialBtn = document.getElementById("officialBtn");
-var officialSpan = document.querySelector("#officialModal .close");
+  const openButtons = document.querySelectorAll('.open-modal-button');
+  const viewmodal = document.getElementById('viewModal');
 
-officialBtn.onclick = function() {
-  officialModal.style.display = "block";
-  // Call your function to load dynamic content here if available
+  openButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        const id = this.getAttribute('data-id');
+        const name = this.getAttribute('data-name');
+        const position = this.getAttribute('data-position');
+        const photo = this.getAttribute('data-photo');
+        const term_start = formatDate(this.getAttribute('term_start'));
+        const term_end = formatDate(this.getAttribute('term_end'));
+
+        document.getElementById('viewModalName').innerText = name;
+        document.getElementById('viewModalPosition').innerText = position;
+        document.getElementById('viewModalImage').src = photo;
+        document.getElementById('termStart').innerText = term_start;
+        document.getElementById('termEnd').innerText = term_end;
+
+        viewmodal.style.display = 'block';
+    });
+});
+
+function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = new Date(dateString).toLocaleDateString(undefined, options);
+    return formattedDate;
 }
 
-officialSpan.onclick = function() {
-  officialModal.style.display = "none";
-}
-
-window.onclick = function(event) {
-  if (event.target == officialModal) {
-    officialModal.style.display = "none";
+  function closeModal() {
+    viewmodal.style.display = 'none';
   }
-}
-
-
 </script>
+
+
+
+
+ 
+
+
+
 
 
 
@@ -408,7 +451,6 @@ window.onclick = function(event) {
 <script>
   var modal = document.getElementById("myModal");
   var btn = document.getElementById("myBtn");
-  var span = document.getElementsByClassName("close")[0];
 
   btn.onclick = function() {
     modal.style.display = "block";
@@ -675,8 +717,27 @@ document.getElementById("submitForm").addEventListener("click", function(event) 
 </script>
 
 
+{{-- closing --}}
+<script>
+  // Function to close the modal when clicking the close button
+$('.close').on('click', function() {
+  $(this).closest('.modal').css('display', 'none');
+});
+
+// Function to close the modal when clicking outside the modal content
+$(window).on('click', function(event) {
+  if (event.target.classList.contains('modal')) {
+    $('.modal').css('display', 'none');
+  }
+});
+
+</script>
+
 
 
 @endsection
 
 
+  
+  
+  

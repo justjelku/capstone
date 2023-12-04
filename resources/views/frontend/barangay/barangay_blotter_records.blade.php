@@ -24,7 +24,7 @@
       padding: 20px;
       border: 1px solid #888;
       width: 50%;
-      background:#D4D0D0;
+      background:mintcream;
     }
     
     .modal-content h2{
@@ -75,17 +75,70 @@
                 <div class="card-body" style="background-color: white;">
                     <div class="d-flex align-items-center justify-content-between" style="padding: 10px;">
                         <h1 style="font-size: 20px; font-weight:normal; margin: 0;"> Barangay officials</h1>
-                        <button type="button" class="btn btn-primary" style="padding: 0.20rem 0.4rem; font-size: 0.8rem; margin-right:-500px" id="createBlotterModal">Add </button>
+                        <button type="button" class="btn btn-inverse-warning  " style="padding: 0.20rem 0.4rem; font-size: 0.8rem; margin-right:-500px;" id="createBlotterModal">Add </button>
+                      
+                        <div class="dropdown">
+                            <button class="btn-inverse-info dropdown-toggle" type="button" id="quarterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 0.20rem 0.4rem; font-size: 0.8rem;">
+                                Generate
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="quarterDropdown">
+                                <a class="dropdown-item" href="{{ route('generate-pdf') }}">1st Quarter</a>
+                                <a class="dropdown-item" href="{{ route('second-quarter') }}">2nd Quarter</a>
+                                <a class="dropdown-item" href="{{ route('third-quarter') }}">3rd Quarter</a>
+                                <a class="dropdown-item" href="{{ route('fourth-quarter') }}">4th Quarter</a>
+                               
+                               
+                            </div>
+                        </div>
 
-                        <a href="{{ route('generate-pdf') }}">
-                            <button type="button" class="btn btn-primary" style="padding: 0.20rem 0.4rem; font-size: 0.8rem;">Generate Report</button>
-                        </a>
                         
                     </div>
+
+                    <div class="dropdown" style="width: fit-content; margin-left:755px">
+                        <button class="btn btn-inverse-danger dropdown-toggle" type="button" id="yearDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 0.25rem 0.4rem; font-size: 0.9rem;">
+                            @if(isset($selectedYear))
+                                {{ $selectedYear }}
+                            @else
+                                {{ date('Y') }} <!-- Display the current year if $selectedYear is not set -->
+                            @endif
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="yearDropdown">
+                            @php
+                                $currentYear = date('Y');
+                                $yearsToShow = 5;
+                                $startingYear = $currentYear - $yearsToShow;
+                            @endphp
+                            @for ($i = $currentYear; $i >= $startingYear; $i--)
+                                <a class="dropdown-item @if($i == date('Y')) active @endif" href="{{ route('barangay.blotter.records', ['year' => $i]) }}">{{ $i }}</a>
+                            @endfor
+                        </div>
+                    </div>
+                    
+                    {{-- <div class="dropdown" style="width: fit-content; margin-left: 755px">
+                        <button class="btn btn-inverse-danger dropdown-toggle" type="button" id="yearDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 0.25rem 0.4rem; font-size: 0.9rem;">
+                            {{ date('Y') }} <!-- Display the current year on the button -->
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="yearDropdown">
+                            @php
+                                $currentYear = date('Y');
+                                $yearsToShow = 5; // Adjust this number as needed
+                                $startingYear = $currentYear - $yearsToShow;
+                            @endphp
+                            <a class="dropdown-item year-option" href="{{ route('barangay.blotter.records', ['year' => $currentYear]) }}">{{ $currentYear }}</a>
+                            @for ($i = $currentYear - 1; $i >= $startingYear; $i--)
+                                @if ($i >= $startingYear + 1)
+                                    <a class="dropdown-item year-option" href="{{ route('barangay.blotter.records', ['year' => $i]) }}">{{ $i }}</a>
+                                @endif
+                            @endfor
+                        </div>
+                    </div> --}}
+                    
                     
                     <br>
                            
                     <div class="table-responsive">
+                        @if(isset($blotter_records) && count($blotter_records) > 0)
+                        
                         <table id="dataTableExample" class="table border-secondary border-top table-bordered table-hover table-striped">
                             <thead>
                                 <tr style="background: #fcf8e3">
@@ -103,7 +156,9 @@
                                     <td style="text-align: center; color:black;">{{ $key+1 }}</td>
                                     <td style="text-align: center; color:black;">{{ $blotter_rec->nature_cases }}</td>
                                     <td style="text-align: center; color:black;">{{ $blotter_rec->complainant_name }}</td>
-                                    <td style="text-align: center; color:black;">{{ date('Y-m-d h:i A', strtotime($blotter_rec->schd_mediation)) }}</td>
+                                    {{-- <td style="text-align: center; color:black;">{{ date('Y-m-d h:i A', strtotime($blotter_rec->schd_mediation)) }}</td> --}}
+                                    <td style="text-align: center; color:black;">{{ date('M d, Y', strtotime($blotter_rec->schd_mediation)) }}</td>
+
                                     <td style="text-align: center; color:black">
                                         @php
                                             $statusClass = '';
@@ -143,32 +198,44 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        @else
+                            <p>No records found for the selected year.</p>
+                        @endif
                     </div>
+
                 </div>
             </div>
         </div>
         <div class="col-md-2 grid-margin stretch-card">
-           
             <div class="card-wrapper">
                
                 <div class="card" style='height: 100px;'>
                     <div class="card-body" style='background-color: #FABC5C'>
                         <h5 class="card-title" style="color:black">Mediation</h5>
                         <h3 class="mb-2" style="color: white; text-align: center;">
-                            {{ \App\Models\BarangayBlotterRecords::where('settled_cases', 'Mediation')->count() }}
-                            
+                            {{
+                                \App\Models\BarangayBlotterRecords::where('settled_cases', 'Mediation')
+                                    ->whereYear('updated_at', $selectedYear)
+                                    ->count()
+                            }}
                         </h3>
-                        
-                    </div> 
+                    </div>
                 </div>
+                
+                <!-- Repeat similar modifications for other categories -->
+                
+                
         
                 
                 <div class="card" style='height: 100px; margin-top: 20px;'>
                     <div class="card-body" style='background-color: #FABC5C'>
                         <h5 class="card-title" style="color:black">Conciliated</h5>
                         <h3 class="mb-2" style="color: white; text-align: center;">
-                            {{ \App\Models\BarangayBlotterRecords::where('settled_cases', 'Conciliated')->count() }}
-                        </h3>
+                        {{
+                            \App\Models\BarangayBlotterRecords::where('settled_cases', 'conciliated')
+                                ->whereYear('updated_at', $selectedYear)
+                                ->count()
+                        }}
                        
                     </div> 
                 </div>
@@ -177,7 +244,11 @@
                     <div class="card-body" style='background-color: #FABC5C'>
                         <h5 class="card-title" style="color:black; text-align: center;">Arbitrution</h5>
                         <h3 class="mb-2" style="color: white; text-align: center;">
-                            {{ \App\Models\BarangayBlotterRecords::where('settled_cases', 'Arbitrution')->count() }}
+                            {{
+                                \App\Models\BarangayBlotterRecords::where('settled_cases', 'arbitrution')
+                                    ->whereYear('updated_at', $selectedYear)
+                                    ->count()
+                            }}
                         </h3>
                        
                     </div> 
@@ -187,7 +258,11 @@
                     <div class="card-body" style='background-color: #FABC5C'>
                         <h5 class="card-title" style="color:black">Repudiated</h5>
                         <h3 class="mb-2" style="color: white; text-align: center;">
-                            {{ \App\Models\BarangayBlotterRecords::where('action_taken', 'Repudiated')->count() }}
+                            {{
+                                \App\Models\BarangayBlotterRecords::where('action_taken', 'repudiated')
+                                    ->whereYear('updated_at', $selectedYear)
+                                    ->count()
+                            }}
                         </h3>
                         
                     </div> 
@@ -197,7 +272,11 @@
                     <div class="card-body" style='background-color: #FABC5C'>
                         <h5 class="card-title" style="color:black">Dismissed</h5>
                         <h3 class="mb-2" style="color: white; text-align: center;">
-                            {{ \App\Models\BarangayBlotterRecords::where('action_taken', 'Dismissed')->count() }}
+                            {{
+                                \App\Models\BarangayBlotterRecords::where('action_taken', 'dismissed')
+                                    ->whereYear('updated_at', $selectedYear)
+                                    ->count()
+                            }}
                         </h3>
                        
                     </div> 
@@ -207,7 +286,11 @@
                     <div class="card-body" style='background-color: #FABC5C'>
                         <h5 class="card-title" style="color:black">Referred</h5>
                         <h3 class="mb-2" style="color: white;text-align: center;">
-                            {{ \App\Models\BarangayBlotterRecords::where('action_taken', 'Referred')->count() }}
+                            {{
+                                \App\Models\BarangayBlotterRecords::where('action_taken', 'referred')
+                                    ->whereYear('updated_at', $selectedYear)
+                                    ->count()
+                            }}
                         </h3>
                         
                     </div> 
@@ -226,7 +309,11 @@
                     <div class="card-body" style='background-color: #FABC5C'>
                         <h5 class="card-title" style= "color:black">Pending</h5>
                         <h3 class="mb-2" style="color: white;text-align: center;">
-                            {{ \App\Models\BarangayBlotterRecords::where('action_taken', 'Pending')->count() }}
+                            {{
+                                \App\Models\BarangayBlotterRecords::where('action_taken', 'pending')
+                                    ->whereYear('updated_at', $selectedYear)
+                                    ->count()
+                            }}
                         </h3>
                     </div> 
                 </div>
@@ -487,6 +574,47 @@
         document.getElementById("myForm").submit(); // Submit the form with the ID "myForm"
     });
 </script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+<script>
+    $(document).ready(function() {
+        // Toggle the dropdown manually on button click
+        $('.dropdown-toggle').on('click', function() {
+            $(this).next('.dropdown-menu').toggle();
+        });
+    });
+</script>
+
+<script>
+    // Update the button text to the current year
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById('yearDropdown').textContent = new Date().getFullYear();
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Update the button text to the current year
+        const yearDropdownButton = document.getElementById('yearDropdown');
+
+        yearDropdownButton.textContent = new Date().getFullYear();
+
+        // Add an event listener to each year option
+        document.querySelectorAll('.year-option').forEach(item => {
+            item.addEventListener('click', event => {
+                const selectedYear = event.target.textContent;
+                yearDropdownButton.textContent = selectedYear; // Update the button text with the selected year
+            });
+        });
+    });
+</script>
+
+
 
   
 
