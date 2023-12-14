@@ -68,7 +68,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="" class="nav-link ">
+        <a href="{{ route('barangay.attendance.records') }}" class="nav-link ">
           <i class="link-icon" data-feather="check-circle"></i>
           <span class="link-title">Attendance</span>
         </a>

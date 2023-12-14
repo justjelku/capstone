@@ -12,11 +12,7 @@
             <li class="breadcrumb-item active" aria-current="page">Resident</li>
         </ol>
     </nav>
-    <nav class="page-breadcrumb">
-        <ol class="breadcrumb">
-            <a href="{{ route('barangay.residents') }}" class="btn btn-inverse-primary" data-bs-toggle="tooltip" data-bs-placement="right" title="Back">Back</a>
-        </ol>
-    </nav>
+    
     <form id="myForm" method="POST" action="{{ route('update.resident') }}" class="forms-sample" enctype="multipart/form-data">
         @csrf
 
@@ -27,10 +23,6 @@
             <div class="col-md-4">
                 <div class="card stretch-card">
                     <div class="card-body">
-                        <!-- <div class="d-flex align-items-baseline position-absolute bottom-0 end-0 m-3">
-                            <i class="link-icon" data-feather="help-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Hover and click on the image frame to browse the file."></i>
-                            </div> -->
-
                         <div class="d-flex align-items-baseline position-absolute top-0 end-0 m-1">
                             <div class="toggle-camer mb-2">
                                 <a type="button" id="accesscamera" data-toggle="modal" data-target="#photoModal" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="top" title="Open camera">
@@ -49,11 +41,6 @@
         </div>
     </div>
     </div>
-
-    <!-- <div class="d-flex justify-content-center" id="captureButtonContainer" style="display: none;">
-    <a download id="captureButton" name="photo" class="btn btn-outline-danger rounded-circle capture-button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Capture photo" style="display: none;"><i class="link-icon" data-feather="camera"></i></a>
-</div>        -->
-
                     </div>
                 </div>
             </div>
@@ -101,15 +88,7 @@
                                     <input type="text" name="name" class="form-control" value="{{ $edit_resident->name }}">
                                 </div>
                             </div>
-                            <!-- Col -->
-                            <!-- <div class="col-sm-4">
-                                <div class="text-center form-group mb-3">
-                                <div class="d-flex align-items-center justify-content-center">
-                                <img class="square" name="qr_code" src="{{ (!empty($photo)) ? url('upload/residents_images/'.$photo) : url('upload/no_image.png') }}" alt="qr_code" style="max-width: 50px;">
-                                <input type="file" name="qr_code" id="" style="display: none;">
-                                </div>
-                                </div>
-                                </div> -->
+                            
                         </div>
                         <!-- Row -->
                         <div class="row">
@@ -686,3 +665,7 @@ function take_snapshot()
 
 
 @endsection
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/yeti/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">

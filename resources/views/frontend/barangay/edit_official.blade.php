@@ -1,58 +1,60 @@
-@extends('admin.admin_dashboard')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/yeti/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+
+   
+  
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="shortcut icon" href="{{ asset('image/logo.png') }}" />
+</head>
+<body>
+    @extends('admin.admin_dashboard')
 @section('admin')
 
-<!-- jQuery Google CDN via W3schools.com -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-<div class="page-content">
 
-<nav class="page-breadcrumb">
+    <div class="page-content">  
+                <nav class="page-breadcrumb">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Edit</li>
+                         <li class="breadcrumb-item active" aria-current="page">Edit</li>
 						<li class="breadcrumb-item active" aria-current="page">Barangay Official</li>
 					</ol>
 				</nav>
+                
 
-    <nav class="page-breadcrumb">
-        <ol class="breadcrumb">
-            <a href="{{ route('barangay.officials') }}" class="btn btn-inverse-primary" data-bs-toggle="tooltip" data-bs-placement="right" title="Back">Back</a>
-        </ol>
-    </nav>
     <form id="myForm" method="POST" action="{{ route('update.official') }}" class="forms-sample" enctype="multipart/form-data">
                         @csrf
-
                         <input type="hidden" name="id" value="{{ $edit_official->id }}">
 
     <div class="row">
 
-    <div class="col-md-4">
-                <div class="card stretch-card">
-                    <div class="card-body">
-
-                        <div class="d-flex align-items-baseline position-absolute top-0 end-0 m-1">
-                            <div class="toggle-camer mb-2">
-                                <a type="button" id="accesscamera" data-toggle="modal" data-target="#photoModal" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="top" title="Open camera">
-                                <i class="link-icon" data-feather="video"></i>
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <div class="d-flex justify-content-center">
-    <div class="official-image add-photo-container" style="width: 300px; height: 300px; overflow: hidden; border-radius: 50%;">
-        <div class="d-flex justify-content-center" style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden;">
-            <video id="webCam" autoplay playsinline style="object-fit: cover; width: 100%; height: 100%; border-radius: 50%; display: none;"></video>
-            <img class="rounded-circle changed-image" id="photoImage" name="photo" src="{{ asset($edit_official->photo) }}" alt="{{ $edit_official->photo }}" style="object-fit: cover; width: 100%; height: 100%; border-radius: 50%;" onclick="openFileBrowser()">
-            <input type="file" name="photo" id="photoInput" style="display: none;" onchange="displaySelectedImage(this)">
-            
-        </div>
-    </div>
-    </div>
-
-                    </div>
+        <div class="col-md-4">
+            <div class="d-flex align-items-baseline position-absolute top-0 end-0 m-1">
+                <div class="toggle-camer mb-2">
+                    <a type="button" id="accesscamera" data-toggle="modal" data-target="#photoModal" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="top" title="Open camera">
+                    <i class="link-icon" data-feather="camera"></i>
+                    </a>
                 </div>
             </div>
-
+            
+            <div class="d-flex justify-content-center" style="margin-top: 30px">
+            <div class="resident-image add-photo-container" style="width: 200px; height: 200px; overflow: hidden; border-radius: 50%;">
+                <div class="d-flex justify-content-center" style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden;">
+                    <video id="webCam" autoplay playsinline style="object-fit: cover; width: 100%; height: 100%; border-radius: 50%; display: none;"></video>
+                    <img class="rounded-circle changed-image" id="photoImage" name="photo" src="{{ (!empty($photo)) ? url('upload/residents_images/'.$photo) : url('upload/no_image.png') }}" alt="photo" style="object-fit: cover; width: 100%; height: 100%; border-radius: 50%;" onclick="openFileBrowser()">
+                    <input type="file" name="photo" id="photoInput" style="display: none;" onchange="displaySelectedImage(this)">
+                </div>
+        </div>
+    </div>
+</div>
             <!--Modal-->
     <div class="modal fade" id="photoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -80,20 +82,16 @@
             </div>
         </div>
     </div>
-
-
-
         <div class="col-md-8 stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">Edit Barangay Official</h6>
-                    
-                        <h5 class="text-muted mb-3"><a>Barangay Official Information</a></h5>
+                
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group mb-3">
                                     <label class="form-label">Name</label>
-                                    <input type="text" name="name" class="form-control" value="{{ $edit_official->name }}">
+                                    <input type="text" name="name" class="form-control" id="validationDefault01" required value="{{ $edit_official->name }}">
                                 </div>
                             </div><!-- Col -->
                         </div><!-- Row -->
@@ -101,7 +99,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group mb-3">
                                     <label class="form-label">Position</label>
-                                    <select name="position" class="form-select mb-3 form-control">
+                                    <select name="position" class="form-select mb-3 form-control" id="validationDefault01" required>
                                         <option value="" selected disabled>Select position</option>
                                         <option value="Barangay Captain" {{ $edit_official->position == 'Barangay Captain' ? 'selected' : '' }}>Barangay Captain</option>
                                         <option value="Barangay Kagawad" {{ $edit_official->position == 'Barangay Kagawad' ? 'selected' : '' }}>Barangay Kagawad</option>
@@ -115,7 +113,7 @@
                             <div class="col-sm-6">
                                 <div class="mb-3 form-group">
                                     <label class="form-label">Status</label>
-                                    <select name="status" class="form-select mb-3 form-control">
+                                    <select name="status" class="form-select mb-3 form-control" id="validationDefault01" required>
                                         <option value="" selected disabled>Select status</option>
                                         <option value="Active" {{ $edit_official->status == 'Active' ? 'selected' : '' }}>Active</option>
                                         <option value="Inactive" {{ $edit_official->status == 'Inactive' ? 'selected' : '' }}>Inactive</option>
@@ -161,7 +159,7 @@
                                 </div>
                             </div><!-- Col -->
 
-                            <h5 class="text-muted mb-3"><a>Barangay & Location Information</a></h5>
+                            <h5 class="text-muted mb-3" style="font-size: 20px; margin-top:10px"><a>Barangay & Location Information</a></h5>
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="mb-3 form-group">
@@ -187,7 +185,7 @@
                         </div>
                         <!-- Row -->
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <div class="mb-3 form-group">
                                     <label for="barangay" class="form-label">Barangay</label>
                                     <div class="input-group">
@@ -196,7 +194,7 @@
                                 </div>
                             </div>
                             <!-- Col -->
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <div class="mb-3 form-group">
                                     <label class="form-label">Purok</label>
                                     <select name="purok" class="form-select mb-3 form-control">
@@ -224,7 +222,7 @@
     </div>
 </div>
 
-<!-- Browse File and then preview the selected image -->
+
 <script>
     function openFileBrowser() {
         // Trigger a click event on the hidden file input
@@ -245,11 +243,12 @@
         }
     }
 </script>
-<!-- End Browse File and then preview the selected image -->
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
 
 <script>
     $(document).ready(function() {
@@ -377,4 +376,49 @@ function take_snapshot()
 <script src="{{ asset('plugin/sweetalert/sweetalert.min.js') }}"></script>
 <script src="{{ asset('plugin/webcamjs/webcam.min.js') }}"></script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const formInputs = document.querySelectorAll("form#myForm input, form#myForm select");
+  
+      let changesMade = false;
+  
+      formInputs.forEach(input => {
+        input.addEventListener("change", function() {
+          changesMade = true;
+        });
+      });
+  
+      document.getElementById("myForm").addEventListener("submit", function(event) {
+        if (!changesMade) {
+          event.preventDefault();
+          if (confirm("No changes have been made. Click OK to proceed.")) {
+            // If OK is clicked on the alert, proceed with the form submission
+            document.getElementById("myForm").submit();
+          }
+        } else {
+          // If changes have been made, confirm the user wants to save changes
+          if (confirm("Save changes. Click OK to proceed.")) {
+            // If OK is clicked on the alert, proceed with the form submission
+            document.getElementById("myForm").submit();
+          } else {
+            event.preventDefault();
+          }
+        }
+      });
+    });
+  </script>
+  
+  
+  
+
 @endsection
+
+
+
+
+
+
+    
+</body>
+</html>
+

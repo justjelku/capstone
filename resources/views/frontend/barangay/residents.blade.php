@@ -1,14 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/yeti/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+  
 @extends('admin.admin_dashboard')
 @section('admin')
+
 
 <style>
   .table-red {
   
-    color: red; /* Change this to the text color for rows with a case */
+    color: red; 
   }
   .table-yellow {
     
-    color: yellowgreen; /* Change this to the text color for rows with a case */
+    color: yellowgreen; 
   }
   .table-orange {
    
@@ -68,9 +82,10 @@
             <table id="dataTableExample" class="table border-secondary border-top table-bordered">
               <thead>
                 <tr style="background: #FCD299">
-                  <th style="text-align: center;">Household Number</th>
+                  <th style="text-align: center;">Household <br> No.</th>
+                  <th style="text-align: center;">QR Code</th>
                   <th style="text-align: center;">First name</th>
-                  <th style="text-align: center;">Lastname</th>
+                  <th style="text-align: center;">Last name</th>
                   <th style="text-align: center;">Purok</th>
                   <th style="text-align: center;">Contact No.</th>
                   <th style="text-align: center;">Actions</th>
@@ -100,8 +115,14 @@
                   <tr class="{{ $rowClass }}" >
                     <td style="text-align: center;">{{ $barangay_residents->household_no }}</td>
                     {{-- <td style="text-align: center;">
-                      {!! DNS2D::getBarcodeSVG("$barangay_residents->qr_code", 'QRCODE', 1.7, 1.7, 'black') !!}
+                      {!! DNS2D::getBarcodeSVG("$barangay_residents->household_no", 'QRCODE', 1.7, 1.7, 'black') !!}
                     </td> --}}
+                    <td style="text-align: center;">
+                      {!! DNS2D::getBarcodeSVG(strtoupper("$barangay_residents->name-$barangay_residents->purok HH:$barangay_residents->household_no"), 'QRCODE', 1.7, 1.7, 'black') !!}
+                  </td>
+                  
+                  
+                  
                     <td style="text-align: center;">{{ $barangay_residents->first_name }}</td>
                     <td style="text-align: center;">{{ $barangay_residents->last_name}}</td>
                     <td style="text-align: center;">{{ $barangay_residents->purok }}</td>
@@ -113,11 +134,11 @@
                             <i data-feather="eye"></i>
                           </button>
                         </a>
-                        <a href="{{ route('edit.resident', $barangay_residents->id) }}">
-                          <button type="button" class="btn btn-inverse-warning btn-icon btn-xs" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
-                            <i data-feather="edit"></i>
-                          </button>
-                        </a>
+                        <button type="button" class="btn btn-inverse-warning btn-icon btn-xs" 
+                            onclick="window.location.href='{{ route('edit.resident', ['id' => $barangay_residents->id]) }}'">
+                        <i data-feather="edit"></i>
+                       </button>
+                       
                         <a href="{{ route('delete.resident', $barangay_residents->id) }}" id="delete">
                           <button type="button" class="btn btn-inverse-danger btn-icon btn-xs" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
                             <i data-feather="trash"></i>
@@ -236,3 +257,7 @@
 
 
 @endsection 
+
+  
+</body>
+</html>

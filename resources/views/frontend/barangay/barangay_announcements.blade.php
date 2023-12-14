@@ -1,75 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/yeti/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Additional custom styles */
+        .custom-card {
+            border: 1px solid #6c757d; /* Border color */
+        }
+    </style>
+</head>
+<body>
+
 @extends('admin.admin_dashboard')
 @section('admin')
+    <div class="page-content">
+        <nav class="page-breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Releases</li>
+                <li class="breadcrumb-item active" aria-current="page">Announcements</li>
+            </ol>
+        </nav>
 
-<div class="page-content">
-
-<nav class="page-breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Releases</li>
-            <li class="breadcrumb-item active" aria-current="page">Announcements</li>
-        </ol>
-    </nav>
-
-    <nav class="page-breadcrumb">
-        <ol class="breadcrumb">
-            <a href="#" class="btn btn-inverse-primary" data-bs-toggle="tooltip" data-bs-placement="right" title="Create barangay announcement">Create</a>
-        </ol>
-    </nav>
-
-				<div class="row">
-					<div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h6 class="card-title">Announcements</h6>
-                <p class="text-muted mb-3">Barangay Imbatug <a href="#"> announcements</a>.</p>
-                <div class="table-responsive">
-                  <table id="dataTableExample" class="table border-secondary border-top table-bordered table-hover table-striped">
-                    <thead>
-                      <tr>
-                        <th style="text-align: center;">ID</th>
-                        <th style="text-align: center;">Announcement Name</th>
-                        <th style="text-align: center;">Announcement Details</th>
-                        <th style="text-align: center;">Announcement Date</th>
-                        <th style="text-align: center;">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                     @foreach($announcements as $key => $announcements)
-                      <tr>
-                        <td style="text-align: center;">{{ $key+1 }}</td>
-                        <td style="text-align: center;">{{ $announcements->announcement_name }}</td>
-                        <td style="text-align: center;">{{ $announcements->announcement_details }}</td>
-                        <td style="text-align: center;">{{ $announcements->announcement_date_time }}</td>
-                        <td>
-                        <div style="text-align: center;">
-                        <a href="#">
-                        <button type="button" class="btn btn-inverse-info btn-icon btn-xs" data-bs-toggle="tooltip" data-bs-placement="top" title="View more">
-                          <i data-feather="eye"></i>
-                        </button>
-                        </a>
-                        <a href="#">
-                        <button type="button" class="btn btn-inverse-warning btn-icon btn-xs" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
-                          <i data-feather="edit"></i>
-                        </button>
-                        </a>
-                        <a href="#">
-                        <button type="button" class="btn btn-inverse-danger btn-icon btn-xs" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
-                          <i data-feather="trash"></i>
-                        </button>
-                        </a>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card custom-card">
+                        <div class="card-body">
+                            <h1 class="text-center mb-4">Send Bulk SMS</h1>
+                            <form method="POST" action="{{ url('/send-message') }}">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="phoneNumbers" class="form-label">Recipient Phone Numbers (one per line):</label>
+                                    <textarea class="form-control" id="phoneNumbers" name="phoneNumbers" rows="4" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Message:</label>
+                                    <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="sim" class="form-label">SIM Slot (optional):</label>
+                                    <input type="text" class="form-control" id="sim" name="sim">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="priority" class="form-label">Priority (0 or 1, optional):</label>
+                                    <input type="text" class="form-control" id="priority" name="priority">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Send Message</button>
+                            </form>
                         </div>
-                        </td>
-                      </tr>
-                     @endforeach
-                    </tbody>
-                  </table>
+                    </div>
                 </div>
-              </div>
             </div>
-					</div>
-				</div>
-
-			</div>
-
+        </div>
+    </div>
 @endsection
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
