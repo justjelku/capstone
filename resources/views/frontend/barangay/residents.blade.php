@@ -68,7 +68,8 @@
             <table id="dataTableExample" class="table border-secondary border-top table-bordered">
               <thead>
                 <tr style="background: #FCD299">
-                  <th style="text-align: center;">Household Number</th>
+                  <th style="text-align: center;">Household No.</th>
+                  <th style="text-align: center;">QR Code</th>
                   <th style="text-align: center;">First name</th>
                   <th style="text-align: center;">Lastname</th>
                   <th style="text-align: center;">Purok</th>
@@ -100,8 +101,14 @@
                   <tr class="{{ $rowClass }}" >
                     <td style="text-align: center;">{{ $barangay_residents->household_no }}</td>
                     {{-- <td style="text-align: center;">
-                      {!! DNS2D::getBarcodeSVG("$barangay_residents->qr_code", 'QRCODE', 1.7, 1.7, 'black') !!}
+                      {!! DNS2D::getBarcodeSVG("$barangay_residents->household_no", 'QRCODE', 1.7, 1.7, 'black') !!}
                     </td> --}}
+                    <td style="text-align: center;">
+                      {!! DNS2D::getBarcodeSVG(strtoupper("$barangay_residents->name-$barangay_residents->purok HH:$barangay_residents->household_no"), 'QRCODE', 1.7, 1.7, 'black') !!}
+                  </td>
+                  
+                  
+                  
                     <td style="text-align: center;">{{ $barangay_residents->first_name }}</td>
                     <td style="text-align: center;">{{ $barangay_residents->last_name}}</td>
                     <td style="text-align: center;">{{ $barangay_residents->purok }}</td>

@@ -10,7 +10,7 @@ use App\Http\Controllers\Backend\BarangayResidentsController;
 use App\Http\Controllers\Backend\BarangayCertificatesController;
 use App\Http\Controllers\Backend\BarangayClearancesController;
 use App\Http\Controllers\Backend\BarangayBlotterRecordsController;
-use App\Http\Controllers\Backend\BarangayAttendanceRecordsController;
+use App\Http\Controllers\attendanceController;
 use App\Http\Controllers\Backend\BarangayAnnouncementsController;
 use App\Http\Controllers\Backend\BarangayRevenuesController;
 use App\Http\Controllers\BusinessClearanceController;
@@ -164,17 +164,11 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     // Barangay blotter records type all route
     Route::controller(BarangayBlotterRecordsController::class)->group(function(){
     Route::get('/barangay/blotter_records', 'BlotterRecords')->name('barangay.blotter.records');
-
     Route::get('/create/blotterrecord', 'CreateBlotterRecord')->name('create.blotter.record');
-
     Route::post('/store/blotterrecord', 'StoreBlotterRecord')->name('store.blotter.record');
-
     Route::get('/edit/blotterrecord/{id}', 'EditBlotterRecord')->name('edit.blotter.record');
-
     Route::post('/update/blotterrecord', 'UpdateBlotterRecord')->name('update.blotter.record');
-
     Route::get('/delete/blotterrecord/{id}', 'DeleteBlotterRecord')->name('delete.blotter.record');
-
     Route::get('/view/blotterrecord/{id}', 'ViewBlotterRecord')->name('view.blotter.record');
     Route::put('/blotter-records/{id}/mark-as-done', 'MarkBlotterRecordAsDone')->name('mark-as-done.blotter.record');
     Route::get('/generate-pdf', 'FirstQuarter')->name('generate-pdf');
@@ -187,22 +181,14 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     });
 
     // Barangay attendance records type all route
-    Route::controller(BarangayAttendanceRecordsController::class)->group(function(){
-
-    Route::get('/barangay/attendancerecords', 'AttendanceRecords')->name('barangay.attendance.records');
-
-    Route::get('/create/attendancerecord', 'CreateAttendanceRecord')->name('create.attendance.record');
-
-    Route::post('/store/attendancerecord', 'StoreAttendanceRecord')->name('store.attendance.record');
-
-    Route::get('/edit/attendancerecord/{id}', 'EditAttendanceRecord')->name('edit.attendance.record');
-
-    Route::post('/update/attendancerecord', 'UpdateAttendanceRecord')->name('update.attendance.record');
-
-    Route::get('/delete/attendancerecord/{id}', 'DeleteAttendanceRecord')->name('delete.attendance.record');
-
-    Route::get('/view/attendancerecord/{id}', 'ViewAttendanceRecord')->name('view.attendance.record');
-
+    Route::controller(attendanceController::class)->group(function(){
+    Route::get('/barangay/attendance_records', 'index')->name('barangay.attendance.records');
+    // Route::get('/create/attendancerecord', 'CreateAttendanceRecord')->name('create.attendance.record');
+    // Route::post('/store/attendancerecord', 'StoreAttendanceRecord')->name('store.attendance.record');
+    // Route::get('/edit/attendancerecord/{id}', 'EditAttendanceRecord')->name('edit.attendance.record');
+    // Route::post('/update/attendancerecord', 'UpdateAttendanceRecord')->name('update.attendance.record');
+    // Route::get('/delete/attendancerecord/{id}', 'DeleteAttendanceRecord')->name('delete.attendance.record');
+    // Route::get('/view/attendancerecord/{id}', 'ViewAttendanceRecord')->name('view.attendance.record');
     });
 
     // Barangay announcements type all route
