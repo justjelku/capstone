@@ -1,4 +1,69 @@
-@extends('admin.admin_dashboard')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/yeti/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <style>
+
+        /* The Modal (background) */
+        .modal {
+          display: none; /* Hidden by default */
+          position: fixed; /* Stay in place */
+          z-index: 1; /* Sit on top */
+          padding-top: 100px; /* Location of the box */
+          left: 0;
+          top: 0;
+          width: 100%; /* Full width */
+          height: 100%; /* Full height */
+          overflow: auto; /* Enable scroll if needed */
+        }
+        
+        /* Modal Content */
+        .modal-content {
+          background-color: #fefefe;
+          margin: auto;
+          padding: 20px;
+          border: 1px solid #888;
+          width: 50%;
+          background:mintcream;
+        }
+        
+        .modal-content h2{
+            align-items: center;
+            text-align: center;
+        }
+        
+        /* The Close Button */
+        .close {
+          color: #aaaaaa;
+          /* float: left; */
+          font-size: 28px;
+          font-weight: bold;
+           position: absolute;
+            top: 10px;
+            right: 15px;
+        }
+        
+        .close:hover,
+        .close:focus {
+          color: transparent;
+          text-decoration: none;
+          cursor: pointer;
+        }
+    
+        .form-label{
+            color:black;
+        }
+        </style>
+</head>
+<body>
+
+    @extends('admin.admin_dashboard')
 @section('admin')
 
 <!-- Flatpickr CSS -->
@@ -78,131 +143,130 @@
 <!-- Add this modal at the end of your Blade file -->
 <div class="modal fade" id="residentModal" tabindex="-1" role="dialog" aria-labelledby="residentModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="residentModalLabel">Business Clearance Issuance</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="residentDetailsForm" method="POST" action="{{route('save-business-clearance')}}" class="forms-sample">
-                    @csrf
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="mb-3 form-group">
-                                <label for="residentName">Name</label>
-                                <input type="text" class="form-control" id="residentName" name="residentName" readonly>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="mb-3 form-group">
-                                <label for="residentPurok">Purok</label>
-                                <input type="text" class="form-control" id="residentPurok" name="residentPurok" readonly>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="mb-3 form-group">
-                                <label for="residentStatus">Status</label>
-                                <input type="text" class="form-control" id="residentStatus" name="residentStatus" readonly>
-                            </div>
-                        </div>
-                        
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="mb-3 form-group">
-                                <label class="form-label">Business</label>
-                                <input type="text" name="business" placeholder="Enter business" class="form-control" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mb-3 form-group">
-                                <label class="form-label">Type of Business</label>
-                                <select name="business_type" class="form-select mb-3 form-control" autocomplete="off">
-                                    <option value="" selected disabled>Select Type of Business</option>
-                                    <option value="Old">Old</option>
-                                    <option value="New">New</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="mb-3 form-group">
-                                <label class="form-label">Date</label>
-                                <div class="input-group">
-                                    <input type="date" id="date" name="date" class="form-control" autocomplete="off">
-                                    <span class="input-group-text input-group-addon">
-                                        <i data-feather="calendar"></i>
-                                    </span>
-                                </div>
-                                <span id="dateError" style="color: red; display: none;">Please select a date</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="mb-3 form-group">
-                                <label class="form-label">CTC No.</label>
-                                <input type="number" name="ctc_no" placeholder="Enter CTC No." class="form-control"  autocomplete="off">
-                                <span id="ctcError" style="color: red; display: none;">Please enter CTC No. </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="mb-3 form-group">
-                                <label class="form-label">Issued At</label>
-                                <input type="text" name="issued_at" placeholder="Enter issued at" class="form-control" autocomplete="off">
-                                <span id="issuedError" style="color: red; display: none;">Please enter issued at </span>
-                            </div>
-                        </div>
-                        
-                        <div class="col-sm-4">
-                            <div class="mb-3 form-group">
-                                <label class="form-label">Date Issued</label>
-                                <div class="input-group">
-                                    <input type="text" id="date_issued" name="date_issued" class="form-control" autocomplete="off">
-                                    <span class="input-group-text input-group-addon">
-                                        <i data-feather="calendar"></i>
-                                    </span>
-                                </div>
-                                <span id="dateIssuedError" style="color: red; display: none;">Please enter date issued </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="mb-3 form-group">
-                                <label class="form-label">O.R No.</label>
-                                <input type="number" name="or_no" placeholder="Enter O.R no." class="form-control" autocomplete="off">
-                                <span id="orError" style="color: red; display: none;">Please enter OR No. </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="mb-3 form-group">
-                                <label class="form-label">Amount Paid</label>
-                                <input type="text" name="amount_paid" placeholder="Enter amount" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off">
-                                <span id="amountError" style="color: red; display: none;">Please enter amount </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mb-3 form-group">
-                                <label class="form-label">Authorized By</label>
-                                <select name="authorized_by" class="form-select mb-3 form-control">
-                                    <option value="" selected disabled>Select Authorized By:</option>
-                                    <option value="Punong Barangay">Punong Barangay</option>
-                                    <option value="Sangguniang Barangay Member">Sanguniang Barangay Member</option>
-                                </select>
-                            </div>
-                            <span id="authorError" style="color: red; display: none;">Please enter Authorized by </span>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mb-3 form-group">
-                                <label class="form-label">Signed By</label>
-                                <input type="text" name="signed_by" placeholder="Enter name" class="form-control">
-                                <span id="signedError" style="color: red; display: none;">Please enter signed  </span>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary submit" data-bs-toggle="tooltip" data-bs-placement="right" title="Save">Generate Business Clearance</button>
-                </form>
+       
+            <div class="modal-content" style="background:mintcream;">
+                <h5 class="modal-title" id="residentModalLabel" style="color: black; margin-left:120px; margin-bottom:10px">Business Clearance Issuance</h5>
+                
+<form id="residentDetailsForm" method="POST" action="{{route('save-business-clearance')}}" class="forms-sample">
+    @csrf
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="mb-3 form-group">
+                <label for="residentName" style="color: black">Name</label>
+                <input type="text" class="form-control" id="residentName" name="residentName" readonly  style="background-color: #fefefe" id="validationDefault01" required>
             </div>
         </div>
+        <div class="col-sm-4">
+            <div class="mb-3 form-group">
+                <label for="residentPurok" style="color: black">Purok</label>
+                <input type="text" class="form-control" id="residentPurok" name="residentPurok" readonly  style="background-color: #fefefe" id="validationDefault01" required>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="mb-3 form-group">
+                <label for="residentStatus"  style="color: black">Status</label>
+                <input type="text" class="form-control" id="residentStatus" name="residentStatus" readonly  style="background-color: #fefefe" id="validationDefault01" required>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="mb-3 form-group">
+                <label class="form-label"  style="color: black">Business</label>
+                <input type="text" name="business" placeholder="Enter business" class="form-control" autocomplete="off"  style="background-color: #fefefe" id="validationDefault01" required>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="mb-3 form-group">
+                <label class="form-label" style="color: black">Type of Business</label>
+                <select name="business_type" class="form-select mb-3 form-control" autocomplete="off"  style="background-color: #fefefe" id="validationDefault01" required>
+                    <option value="" selected disabled>Select Type of Business</option>
+                    <option value="Old">Old</option>
+                    <option value="New">New</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="mb-3 form-group">
+                <label class="form-label"  style="color: black">Date</label>
+                <div class="input-group">
+                    <input type="date" id="date" name="date" class="form-control" autocomplete="off" style="background-color: #fefefe" id="validationDefault01" required>
+                    <span class="input-group-text input-group-addon">
+                        <i data-feather="calendar"></i>
+                    </span>
+                </div>
+                <span id="dateError" style="color: red; display: none;">Please select a date</span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="mb-3 form-group">
+                <label class="form-label"  style="color: black">CTC No.</label>
+                <input type="number" name="ctc_no" placeholder="Enter CTC No." class="form-control"  autocomplete="off" style="background-color: #fefefe" id="validationDefault01" required >
+                <span id="ctcError" style="color: red; display: none;">Please enter CTC No. </span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="mb-3 form-group">
+                <label class="form-label" style="color: black">Issued At</label>
+                <input type="text" name="issued_at" placeholder="Enter issued at" class="form-control" autocomplete="off"  style="background-color: #fefefe" id="validationDefault01" required>
+                <span id="issuedError" style="color: red; display: none;">Please enter issued at </span>
+            </div>
+        </div>
+        
+        <div class="col-sm-4">
+            <div class="mb-3 form-group">
+                <label class="form-label"  style="color: black">Date Issued</label>
+                <div class="input-group">
+                    <input type="text" id="date_issued" name="date_issued" class="form-control" autocomplete="off" style="background-color: #fefefe" id="validationDefault01" required>
+                    <span class="input-group-text input-group-addon">
+                        <i data-feather="calendar"></i>
+                    </span>
+                </div>
+                <span id="dateIssuedError" style="color: red; display: none;">Please enter date issued </span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="mb-3 form-group">
+                <label class="form-label" style="color: black">O.R No.</label>
+                <input type="number" name="or_no" placeholder="Enter O.R no." class="form-control" autocomplete="off" style="background-color: #fefefe" id="validationDefault01" required>
+                <span id="orError" style="color: red; display: none;">Please enter OR No. </span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="mb-3 form-group"  >
+                <label class="form-label" style="color: black">Amount Paid</label>
+                <input type="text" name="amount_paid" placeholder="Enter amount" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off" style="background-color: #fefefe" id="validationDefault01" required>
+                <span id="amountError" style="color: red; display: none;">Please enter amount </span>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="mb-3 form-group">
+                <label class="form-label"  style="color: black">Authorized By</label>
+                <select name="authorized_by" class="form-select mb-3 form-control"  style="background-color: #fefefe" id="validationDefault01" required>
+                    <option value="" selected disabled>Select Authorized By:</option>
+                    <option value="Punong Barangay">Punong Barangay</option>
+                    <option value="Sangguniang Barangay Member">Sanguniang Barangay Member</option>
+                </select>
+            </div>
+            <span id="authorError" style="color: red; display: none;">Please enter Authorized by </span>
+        </div>
+        <div class="col-sm-6">
+            <div class="mb-3 form-group">
+                <label class="form-label"  style="color: black">Signed By</label>
+                <input type="text" name="signed_by" placeholder="Enter name" class="form-control"  style="background-color: #fefefe" id="validationDefault01" required>
+                <span id="signedError" style="color: red; display: none;">Please enter signed  </span>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary submit" data-bs-toggle="tooltip" data-bs-placement="right" title="Save">Generate Business Clearance</button>
+</form>
+            
+          
+                
+        
+    </div>
     </div>
 </div>
 
@@ -270,3 +334,8 @@
 
 
 @endsection
+
+    
+</body>
+</html>
+

@@ -1,5 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/yeti/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+    
 @extends('admin.admin_dashboard')
 @section('admin')
+
+
 
 
 <style>
@@ -113,25 +129,6 @@
                             @endfor
                         </div>
                     </div>
-                    
-                    {{-- <div class="dropdown" style="width: fit-content; margin-left: 755px">
-                        <button class="btn btn-inverse-danger dropdown-toggle" type="button" id="yearDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 0.25rem 0.4rem; font-size: 0.9rem;">
-                            {{ date('Y') }} <!-- Display the current year on the button -->
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="yearDropdown">
-                            @php
-                                $currentYear = date('Y');
-                                $yearsToShow = 5; // Adjust this number as needed
-                                $startingYear = $currentYear - $yearsToShow;
-                            @endphp
-                            <a class="dropdown-item year-option" href="{{ route('barangay.blotter.records', ['year' => $currentYear]) }}">{{ $currentYear }}</a>
-                            @for ($i = $currentYear - 1; $i >= $startingYear; $i--)
-                                @if ($i >= $startingYear + 1)
-                                    <a class="dropdown-item year-option" href="{{ route('barangay.blotter.records', ['year' => $i]) }}">{{ $i }}</a>
-                                @endif
-                            @endfor
-                        </div>
-                    </div> --}}
                     
                     
                     <br>
@@ -336,7 +333,7 @@
             <div class="col-sm-4">
                 <div class="mb-3 form-group">
                     <label class="form-label">Nature of Cases</label>
-                    <select name="nature_cases" class="form-select mb-3 form-control">
+                    <select name="nature_cases" class="form-select mb-3 form-control"  id="validationDefault01" required>
                         <option value="" selected disabled>Select Nature of Case</option>
                         <option value="Criminal">Criminal</option>
                         <option value="Civil">Civil</option>
@@ -349,8 +346,8 @@
             <div class="col-sm-4">
               <div class="mb-3 form-group">
                   <label class="form-label">Schedule of Mediation</label>
-                  <div class="input-group">
-                      <input type="datetime" id="schd_mediation" name="schd_mediation" placeholder="Select date"  class="form-control flatpickr-input active" autocomplete="off">
+                  <div class="input-group"> 
+                      <input type="datetime" id="schd_mediation" name="schd_mediation" placeholder="Select date"  class="form-control flatpickr-input active" autocomplete="off" id="validationDefault01" required>
                       <span class="input-group-text input-group-addon" data-toggle="">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
                               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
@@ -367,7 +364,7 @@
           <div class="col-sm-4">
             <div class="mb-3 form-group">
                 <label class="form-label">Status</label>
-                <select name="status" class="form-select mb-3 form-control">
+                <select name="status" class="form-select mb-3 form-control" id="validationDefault01" required>
                     <option value="" selected disabled>Select status</option>
                     <option value="Pending">Pending</option>
                     <option value="Finished">Finished</option>
@@ -382,21 +379,21 @@
             <div class="col-sm-12">
                 <div class="mb-3 form-group">
                     <label class="form-label">Complain's Details</label>
-                    <textarea name="complains_details" placeholder="Enter complain's details" rows="6" class="form-control"></textarea>
+                    <textarea name="complains_details" placeholder="Enter complain's details" rows="6" class="form-control" id="validationDefault01" required></textarea>
                    </div>
         </div><!-- Col -->
         <legend style="color:black">Complainant's Information</legend>
             <div class="col-sm-6">
                 <div class="mb-3 form-group">
                     <label class="form-label">Complainant Name</label>
-                    <input type="text" name="complainant_name" placeholder="Enter complainant name" class="form-control">
+                    <input type="text" name="complainant_name" placeholder="Enter complainant name" class="form-control" id="validationDefault01" required>
                     
                 </div>
             </div><!-- Col -->
             <div class="col-sm-6">
                 <div class="mb-3 form-group">
                     <label class="form-label">Complainant Address</label>
-                    <input type="text" name="complainant_address" placeholder="Enter complainant address" class="form-control">
+                    <input type="text" name="complainant_address" placeholder="Enter complainant address" class="form-control" id="validationDefault01" required>
                     
                 </div>
             </div><!-- Col -->
@@ -405,14 +402,14 @@
             <div class="col-sm-6">
                 <div class="mb-3 form-group">
                     <label class="form-label">Respondent Name</label>
-                    <input type="text" name="respondent_name" placeholder="Enter respondent name" class="form-control">
+                    <input type="text" name="respondent_name" placeholder="Enter respondent name" class="form-control" id="validationDefault01" required>
                     
                 </div>
             </div><!-- Col -->
             <div class="col-sm-6">
                 <div class="mb-3 form-group">
                     <label class="form-label">Respondent Address</label>
-                    <input type="text" name="respondent_address" placeholder="Enter respondent address" class="form-control">
+                    <input type="text" name="respondent_address" placeholder="Enter respondent address" class="form-control" id="validationDefault01" required>
                     
                 </div>
             </div><!-- Col -->
@@ -432,7 +429,7 @@
             <div class="col-sm-6">
                 <div class="mb-3 form-group">
                     <label class="form-label">Action Taken</label>
-                    <select name="action_taken" class="form-select mb-3 form-control">
+                    <select name="action_taken" class="form-select mb-3 form-control" id="validationDefault01" required>
                         <option value="" selected disabled>Select action</option>
                         <option value="None">None</option>
                         <option value="Repudiated">Repudiated</option>
@@ -446,96 +443,16 @@
            
             
         </div><!-- Row -->
-        <button type="submit" class="btn btn-primary submit" data-bs-toggle="tooltip" data-bs-placement="right" title="Save">Save</button>
+        <button type="submit" class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0" style="color: black">
+            Login
+        </button>
     </form>
     </div>
   </div>
 
 
 
-<!-- Validation -->
-<script type="text/javascript">
-  $(document).ready(function (){
-      $('#myForm').validate({
-          rules: {
-              nature_cases: {
-                  required : true,
-              }, 
-              schd_mediation: {
-                  required : true,
-              },
-              status: {
-                  required : true,
-              },
-              complains_details: {
-                  required : true,
-              },
-              respondent_name: {
-                  required : true,
-              },
-              respondent_address: {
-                  required : true,
-              },
-              
-              complainant_name: {
-                  required : true,
-              },
-              complainant_address: {
-                  required : true,
-              },
-              settled_cases: {
-                  required : true,
-              },
-             action_taken: {
-                  required : true,
-              },
-              
-          },
-          messages :{
-              nature_cases: {
-                  required : 'Please select nature of cases.',
-              },
-              schd_mediation: {
-                  required : 'Please enter date of mediation.',
-              },
-              complains_details: {
-                  required : 'Please enter complains details.',
-              },
-              respondent_name: {
-                  required : 'Please enter respondent name.',
-              },
-              respondent_address: {
-                  required : 'Please enter respondent address.',
-              },
-             
-              complainant_name: {
-                  required : 'Please enter complainant name.',
-              },
-              complainant_address: {
-                  required : 'Please enter complainant address.',
-              },
-              settled_cases: {
-                  required : 'Please select action.',
-              },
-              action_taken: {
-                  required : 'Please select action.',
-              },
-          },
-          errorElement : 'span', 
-          errorPlacement: function (error,element) {
-              error.addClass('invalid-feedback');
-              element.closest('.form-group').append(error);
-          },
-          highlight : function(element, errorClass, validClass){
-              $(element).addClass('is-invalid');
-          },
-          unhighlight : function(element, errorClass, validClass){
-              $(element).removeClass('is-invalid');
-          },
-      });
-  });
-  
-</script>
+
 
 <script>
     flatpickr("#schd_mediation", {
@@ -624,4 +541,9 @@
 
 
 
+
+
+    
+</body>
+</html>
 

@@ -1,4 +1,16 @@
-@extends('admin.admin_dashboard')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/yeti/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+  @extends('admin.admin_dashboard')
 @section('admin')
 
 <div class="page-content">
@@ -49,10 +61,10 @@
                         <td style="text-align: center;color:black">{{ $attendance_rec->household_no }}</td>
                         <td style="text-align: center;color:black">{{ $attendance_rec->name }}</td>
                         
-                        <td style="text-align: center; color:black">Absent</td>
-                        <td style="text-align: center; color:black" >Absent </td>
-                        <td style="text-align: center; color:black">Absent </td>
-                        <td style="text-align: center; color:black">Absent </td>
+                        <td style="text-align: center; color:black">present</td>
+                        <td style="text-align: center; color:black" > absent </td>
+                        <td style="text-align: center; color:black"> present </td>
+                        <td style="text-align: center; color:black"> absent </td>
 
                         {{-- actions --}}
                         <td>
@@ -102,3 +114,6 @@
       </script>
 
 @endsection
+  
+</body>
+</html>

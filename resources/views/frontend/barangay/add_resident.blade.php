@@ -17,40 +17,34 @@
             <a href="{{ route('barangay.residents') }}" class="btn btn-inverse-primary" data-bs-toggle="tooltip" data-bs-placement="right" title="Back">Back</a>
         </ol>
     </nav>
+    <!-- Your form code -->
+
+@if(Session::has('success'))
+<div class="alert alert-success">
+    {{ Session::get('success') }}
+</div>
+@endif
+
     <form id="myForm" method="POST" action="{{ route('store.resident') }}" class="forms-sample" enctype="multipart/form-data">
         @csrf
         <div class="row">
 
             <div class="col-md-4">
-                <div class="card stretch-card">
-                    <div class="card-body">
-                        <!-- <div class="d-flex align-items-baseline position-absolute bottom-0 end-0 m-3">
-                            <i class="link-icon" data-feather="help-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Hover and click on the image frame to browse the file."></i>
-                            </div> -->
-
                         <div class="d-flex align-items-baseline position-absolute top-0 end-0 m-1">
                             <div class="toggle-camer mb-2">
                                 <a type="button" id="accesscamera" data-toggle="modal" data-target="#photoModal" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="top" title="Open camera">
-                                <i class="link-icon" data-feather="video"></i>
+                                <i class="link-icon" data-feather="camera"></i>
                                 </a>
                             </div>
                         </div>
                         
-                        <div class="d-flex justify-content-center">
-    <div class="resident-image add-photo-container" style="width: 300px; height: 300px; overflow: hidden; border-radius: 50%;">
-        <div class="d-flex justify-content-center" style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden;">
-            <video id="webCam" autoplay playsinline style="object-fit: cover; width: 100%; height: 100%; border-radius: 50%; display: none;"></video>
-            <img class="rounded-circle changed-image" id="photoImage" name="photo" src="{{ (!empty($photo)) ? url('upload/residents_images/'.$photo) : url('upload/no_image.png') }}" alt="photo" style="object-fit: cover; width: 100%; height: 100%; border-radius: 50%;" onclick="openFileBrowser()">
-            <input type="file" name="photo" id="photoInput" style="display: none;" onchange="displaySelectedImage(this)">
-            
-        </div>
-    </div>
-    </div>
-
-    <!-- <div class="d-flex justify-content-center" id="captureButtonContainer" style="display: none;">
-    <a download id="captureButton" name="photo" class="btn btn-outline-danger rounded-circle capture-button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Capture photo" style="display: none;"><i class="link-icon" data-feather="camera"></i></a>
-</div>        -->
-
+                        <div class="d-flex justify-content-center" style="margin-top: 30px">
+                        <div class="resident-image add-photo-container" style="width: 200px; height: 200px; overflow: hidden; border-radius: 50%;">
+                            <div class="d-flex justify-content-center" style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden;">
+                                <video id="webCam" autoplay playsinline style="object-fit: cover; width: 100%; height: 100%; border-radius: 50%; display: none;"></video>
+                                <img class="rounded-circle changed-image" id="photoImage" name="photo" src="{{ (!empty($photo)) ? url('upload/residents_images/'.$photo) : url('upload/no_image.png') }}" alt="photo" style="object-fit: cover; width: 100%; height: 100%; border-radius: 50%;" onclick="openFileBrowser()">
+                                <input type="file" name="photo" id="photoInput" style="display: none;" onchange="displaySelectedImage(this)">
+                            </div>
                     </div>
                 </div>
             </div>
@@ -86,51 +80,39 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-title">Add Barangay Resident</h6>
+                        <h6 class="card-title" style="font-size: 20px; margin-left:170px">Barangay Resident Information</h6>
                         <div class="d-flex align-items-baseline position-absolute top-0 end-0 m-3">
                         <i class="link-icon" data-feather="help-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="A resident photo is required. Hover and click on the image frame to browse the file."></i>
                             </div>
-                        <h5 class="text-muted mb-3"><a>Barangay Resident Information</a></h5>
+                       
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="mb-3 form-group">
                                     <label class="form-label">Name</label>
-                                    <input type="text" name="name" class="form-control" placeholder="Enter full name">
-                                    @error('name')
-                <span class="text-danger">{{ $message }}</span>
-            @enderror
+                                    <input type="text" name="name" class="form-control" placeholder="Enter full name" autocomplete="off">
                                 </div>
                             </div>
-                            <!-- Col -->
-                            <!-- <div class="col-sm-4">
-                                <div class="text-center form-group mb-3">
-                                <div class="d-flex align-items-center justify-content-center">
-                                <img class="square" name="qr_code" src="{{ (!empty($photo)) ? url('upload/residents_images/'.$photo) : url('upload/no_image.png') }}" alt="qr_code" style="max-width: 50px;">
-                                <input type="file" name="qr_code" id="" style="display: none;">
-                                </div>
-                                </div>
-                                </div> -->
                         </div>
                         <!-- Row -->
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="mb-3 form-group">
                                     <label class="form-label">First Name</label>
-                                    <input type="text" name="first_name" class="form-control" placeholder="Enter first name">
+                                    <input type="text" name="first_name" class="form-control" placeholder="Enter first name" autocomplete="off">
                                 </div>
                             </div>
                             <!-- Col -->
                             <div class="col-sm-4">
                                 <div class="mb-3 form-group">
                                     <label class="form-label">Middle Name</label>
-                                    <input type="text" name="middle_name" class="form-control" placeholder="Enter middle name">
+                                    <input type="text" name="middle_name" class="form-control" placeholder="Enter middle name" autocomplete="off">
                                 </div>
                             </div>
                             <!-- Col -->
                             <div class="col-sm-4">
                                 <div class="mb-3 form-group">
                                     <label class="form-label">Last Name</label>
-                                    <input type="text" name="last_name" class="form-control" placeholder="Enter last name">
+                                    <input type="text" name="last_name" class="form-control" placeholder="Enter last name" autocomplete="off">
                                 </div>
                             </div>
                             <!-- Col -->
@@ -180,14 +162,14 @@
                             <div class="col-sm-4">
                                 <div class="mb-3 form-group">
                                     <label class="form-label">Phone</label>
-                                    <input type="number" name="phone" class="form-control" placeholder="Enter phone">
+                                    <input type="number" name="phone" class="form-control" placeholder="Enter phone" autocomplete="off">
                                 </div>
                             </div>
                             <!-- Col -->
                             <div class="col-sm-4">
                                 <div class="mb-3 form-group">
                                     <label class="form-label">Status</label>
-                                    <select name="status" class="form-select mb-3 form-control">
+                                    <select name="status" class="form-select mb-3 form-control" autocomplete="off">
                                         <option value="" selected disabled>Select status</option>
                                         <option value="Single">Single</option>
                                         <option value="Married">Married</option>
@@ -275,7 +257,7 @@
                             <div class="col-sm-12">
                                 <div class="mb-3 form-group">
                                     <label class="form-label">Address</label>
-                                    <input type="text" name="address" class="form-control" placeholder="Enter full address">
+                                    <input type="text" name="address" class="form-control" placeholder="Enter full address" autocomplete="off">
                                 </div>
                             </div>
                             <!-- Col -->
@@ -303,7 +285,7 @@
                             <div class="col-sm-6">
                                 <div class="mb-3 form-group">
                                     <label class="form-label">Occupation</label>
-                                    <input type="text" name="occupation" class="form-control" placeholder="Enter occupation">
+                                    <input type="text" name="occupation" class="form-control" placeholder="Enter occupation" autocomplete="off">
                                 </div>
                             </div>
                             <!-- Col -->
@@ -315,7 +297,7 @@
                                     <label class="form-label">
                                         Relation to the HH Head <a data-bs-toggle="tooltip" data-bs-placement="top" title="..." href="#" class="text-primary">(?)</a>
                                     </label>
-                                    <input type="number" name="relation_to_the_hh_head" class="form-control" placeholder="Enter number">
+                                    <input type="number" name="relation_to_the_hh_head" class="form-control" placeholder="Enter number" autocomplete="off">
                                 </div>
                             </div>
                             <!-- Col -->
@@ -387,7 +369,7 @@
                                 </div>
                             </div>
                         </div><!-- Row -->
-                        <h5 class="text-muted mb-3"><a>Barangay & Location Information</a></h5>
+                        <h5 class="text-muted mb-3" style="font-size: 20px; margin-top:20px"><a>Barangay & Location Information</a></h5>
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="mb-3 form-group">
@@ -443,16 +425,16 @@
                             <div class="col-sm-4">
                                 <div class="mb-3 form-group">
                                     <label class="form-label">Household No.</label>
-                                    <input type="number" name="household_no" class="form-control" placeholder="Enter household number"> 
+                                    <input type="number" name="household_no" class="form-control" placeholder="Enter household number" autocomplete="off"> 
                                 </div>
                             </div>
                         </div>
                         <!-- Row -->
                         <button type="submit" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="right" title="Save">Save</button>
-    </form>
-    </div>
-    </div>
-    </div>
+                    </form>
+                 </div>
+            </div>
+        </div>
     </div>
 </div>
 <!-- Validation -->
@@ -910,26 +892,6 @@ religionSelect.addEventListener('change', (event) => {
   }
 });
 
-// tribeForm.addEventListener('submit', (event) => {
-//   event.preventDefault(); // Prevent the default form submission
-
-//   const selectedOption = tribeSelect.value;
-//   let tribeValue = '';
-
-//   if (selectedOption === 'other') {
-//     tribeValue = otherTribeInput.value.trim(); // Trim whitespace from the input value
-//   } else {
-//     tribeValue = selectedOption;
-//   }
-
-//   if (!tribeValue) { // Check if tribeValue is empty
-//     alert('Please select a tribe or enter a tribe if you selected "Other".');
-//     return; // Prevent further submission if tribeValue is empty
-//   }
-
-//   // Submit the form using AJAX or your preferred method, passing the tribeValue
-//   console.log('Submitting tribe:', tribeValue);
-// });
 
 </script>
 
@@ -958,29 +920,14 @@ religionSelect.addEventListener('change', (event) => {
       }
     });
     
-    // tribeForm.addEventListener('submit', (event) => {
-    //   event.preventDefault(); // Prevent the default form submission
-    
-    //   const selectedOption = tribeSelect.value;
-    //   let tribeValue = '';
-    
-    //   if (selectedOption === 'other') {
-    //     tribeValue = otherTribeInput.value.trim(); // Trim whitespace from the input value
-    //   } else {
-    //     tribeValue = selectedOption;
-    //   }
-    
-    //   if (!tribeValue) { // Check if tribeValue is empty
-    //     alert('Please select a tribe or enter a tribe if you selected "Other".');
-    //     return; // Prevent further submission if tribeValue is empty
-    //   }
-    
-    //   // Submit the form using AJAX or your preferred method, passing the tribeValue
-    //   console.log('Submitting tribe:', tribeValue);
-    // });
-    
+
     </script>
-    
+
+
 
 
 @endsection
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/yeti/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">

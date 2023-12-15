@@ -8,18 +8,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Models\BarangayResidents;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+
+
 
 
 class BarangayResidentsController extends Controller
 {
-    // public function Residents(){
 
-    //     $residents = BarangayResidents::latest()->get();
-    //     // return view('frontend.barangay.residents', compact('residents'));
-    //     // $residents = BarangayResidents::orderBy('purok', 'ASC')->get();
-    //     return view('frontend.barangay.residents', compact('residents'));
-
-    // } // End Method
     public function Residents(Request $request){
         $purok = $request->input('purok', 'Purok 1');
         $selectedPurok = $purok;
@@ -70,14 +66,19 @@ class BarangayResidentsController extends Controller
 
 
         
-        $notification = array(
+        // $notification = array(
 
-            'message' => 'Barangay resident added successfully',
-            'alert-type' => 'success'
+        //     'message' => 'Barangay resident added successfully',
+        //     'alert-type' => 'success'
             
-        );
+        // );
 
-        return redirect()->route('barangay.residents')->with($notification);
+
+        // return redirect()->route('add.residents')->with($notification);
+        Session::flash('success', 'Barangay resident added successfully');
+
+    // Redirect back to the add_resident view
+    return redirect()->route('add.resident');
 
     } // End method
 
@@ -90,9 +91,19 @@ class BarangayResidentsController extends Controller
     public function EditResident($id){
 
         $edit_resident = BarangayResidents::findOrFail($id);
-        return view('frontend.barangay.edit_resident', compact('edit_resident'));
+
+        // Successful edit
+        Session::flash('success', 'Changes have been saved successfully');
+        // No changes made
+        Session::flash('no_changes', 'No changes have been made');
+
+
+
+        return view('frontend.barangay.edit_residents', compact('edit_resident'));
+
 
     } // End method
+    
 
     public function UpdateResident(Request $request){
 

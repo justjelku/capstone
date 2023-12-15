@@ -24,23 +24,17 @@
         <div class="row">
 
             <div class="col-md-4">
-                <div class="card stretch-card">
-                    <div class="card-body">
+                
                        
-                        <div class="d-flex justify-content-center">
-    <div class="resident-image add-photo-container" style="width: 300px; height: 300px; overflow: hidden; border-radius: 50%;">
-        <div class="d-flex justify-content-center" style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden;">
-            <video id="webCam" autoplay playsinline style="object-fit: cover; width: 100%; height: 100%; border-radius: 50%; display: none;"></video>
-            <img class="rounded-circle changed-image" id="photoImage" name="photo" src="{{ asset($view_resident->photo) }}" alt="{{ $view_resident->photo }}" style="object-fit: cover; width: 100%; height: 100%; border-radius: 50%;" onclick="openFileBrowser()" readonly>
-            <input type="file" name="photo" id="photoInput" style="display: none;" onchange="displaySelectedImage(this)">
+                        <div class="d-flex justify-content-center" style="margin-top: 20px">
+                    <div class="resident-image add-photo-container" style="width: 150px; height: 150px; overflow: hidden; border-radius: 50%;">
+                        <div class="d-flex justify-content-center" style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden;">
+                            <video id="webCam" autoplay playsinline style="object-fit: cover; width: 100%; height: 100%; border-radius: 50%; display: none;"></video>
+                            <img class="rounded-circle changed-image" id="photoImage" name="photo" src="{{ asset($view_resident->photo) }}" alt="{{ $view_resident->photo }}" style="object-fit: cover; width: 100%; height: 100%; border-radius: 50%;" onclick="openFileBrowser()" readonly>
+                            <input type="file" name="photo" id="photoInput" style="display: none;" onchange="displaySelectedImage(this)">
             
-        </div>
-    </div>
     </div>
 
-    <!-- <div class="d-flex justify-content-center" id="captureButtonContainer" style="display: none;">
-    <a download id="captureButton" name="photo" class="btn btn-outline-danger rounded-circle capture-button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Capture photo" style="display: none;"><i class="link-icon" data-feather="camera"></i></a>
-</div>        -->
 
                     </div>
                 </div>
@@ -77,11 +71,11 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-title">View Barangay Resident</h6>
+                        
                         <div class="d-flex align-items-baseline position-absolute top-0 end-0 m-3">
                         <i class="link-icon" data-feather="help-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="A resident photo is required. Hover and click on the image frame to browse the file."></i>
                             </div>
-                        <h5 class="text-muted mb-3"><a>Personal Information</a></h5>
+                        <h5 class="text-muted mb-3" style="font-size: 20px; margin-left:200px"><a>Personal Information</a></h5>
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="mb-3 form-group">
@@ -89,15 +83,6 @@
                                     <input type="text" name="name" class="form-control" value="{{ $view_resident->name }}" readonly> 
                                 </div>
                             </div>
-                            <!-- Col -->
-                            <!-- <div class="col-sm-4">
-                                <div class="text-center form-group mb-3">
-                                <div class="d-flex align-items-center justify-content-center">
-                                <img class="square" name="qr_code" src="{{ (!empty($photo)) ? url('upload/residents_images/'.$photo) : url('upload/no_image.png') }}" alt="qr_code" style="max-width: 50px;">
-                                <input type="file" name="qr_code" id="" style="display: none;">
-                                </div>
-                                </div>
-                                </div> -->
                         </div>
                         <!-- Row -->
                         <div class="row">
@@ -394,46 +379,7 @@
                                     <input type="number" name="household_no" class="form-control" value="{{ $view_resident->household_no }}" readonly> 
                                 </div>
                             </div>
-                            <!-- Col -->
-                            <!-- </div>
-                                <div class="row">
-                                <div class="col-sm-12">
-                                                                  <div class="form-group mb-3">
-                                                                      <label class="form-label">Signature</label>
-                                		<textarea name="signature" class="form-control" rows="3"></textarea> 
-                                                                  </div>
-                                                              </div> -->
-                            <!-- <div class="col-sm-6">
-                                <div class="form-group mb-3">
-                                    <label class="form-label">E-Signature</label>
-                                <input type="file" name="signature" class="form-control"> 
-                                </div>
-                                </div> -->
-                            <!-- <div class="col-sm-6">
-                                <div class="form-group mb-3">
-                                    <label for="birthdate" class="form-label">Date Added</label>
-                                    <div class="input-group">
-                                        <input type="datetime" id="resident_added" name="date_filed_resident_profile" class="form-control flatpickr-input active" placeholder="Select date added" readonly="readonly">
-                                        <span class="input-group-text input-group-addon" data-toggle="">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
-                                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                                            </svg>
-                                        </span>
-                                    </div> 
-                                </div>
-                                </div>
-                                </div>
-                                <div class="row">
-                                <div class="col-sm-8">
-                                <div class="e-signature">
-                                <div class="d-flex mb-4"> 
-                                <img class="square" src="{{ (!empty($profileData->photo)) ? url('upload/admin_images/'.$profileData->photo) : url('upload/no_image.png') }}" alt="profile" style="max-width: 100px;">
-                                </div>
-                                </div>
-                                </div> -->
+                           
                         </div>
                         <!-- Row -->
                         
@@ -447,3 +393,7 @@
 
 
 @endsection
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/yeti/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">

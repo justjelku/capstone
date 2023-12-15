@@ -176,14 +176,19 @@
 
 
 	<script>
-    // Initialize flatpickr
-    flatpickr("#term_start", {
-        dateFormat: "Y-m-d",
-        // Additional options...
+  
+   
+    flatpickr('#term_start', {
+        dateFormat: 'Y-m-d', // Date format
+        defaultDate: null, // No default date
+        // Add other options as needed
     });
+
 
     flatpickr("#term_end", {
         dateFormat: "Y-m-d",
+        defaultDate: null,
+        
         // Additional options...
     });
 	

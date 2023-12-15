@@ -12,8 +12,8 @@ use App\Http\Controllers\Backend\BarangayClearancesController;
 use App\Http\Controllers\Backend\BarangayBlotterRecordsController;
 use App\Http\Controllers\attendanceController;
 use App\Http\Controllers\Backend\BarangayAnnouncementsController;
-use App\Http\Controllers\Backend\BarangayRevenuesController;
 use App\Http\Controllers\BusinessClearanceController;
+use App\Http\Controllers\SMSController;
 
 
 
@@ -209,7 +209,9 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/admin/dashboard', [BarangayBlotterRecordsController::class, 'DashBlotterRecords'])->name('admin.dashboard');
     Route::get('/combined-chart', [BarangayResidentsController::class, 'generateChart']);
 
-
+    // Route::get('/send-bulk-sms-form', [SMSController::class, 'showBulkSMSForm']);
+    Route::post('/send-bulk-sms', [SMSController::class, 'sendBulkSMS']);
+    Route::post('/send-message', [SMSController::class, 'sendMessage']);
 
 
 
